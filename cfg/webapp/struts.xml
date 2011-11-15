@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+
+<struts>
+	<package name="default" extends="struts-default">
+        <action name="updates" class="nl.nki.responsepredictor.action.SimulationAction">
+     		<result name="success"> /updates.jsp</result>
+     		<!-- <result name="error"> /error.jsp</result>  -->
+		</action>
+        <action name="run" class="nl.nki.responsepredictor.action.RunAction">
+     		<result name="success"> /report</result>
+		</action> 
+		<action name="check" class="nl.nki.responsepredictor.action.CheckAction">
+            <result name="success"> /checkResult.jsp</result> 
+        </action>
+        <action name="namesFiles" class="nl.nki.responsepredictor.action.NamesFilesAction">
+        	<result name="success"> /namesFiles.jsp</result> 
+        </action>
+        <action name="storedNetwork" class="nl.nki.responsepredictor.action.StoredNetworkAction">
+            <result name="success"> /network.jsp</result> 
+        </action>      
+        <action name="upload" class="nl.nki.responsepredictor.action.UploadAction" method="upload">
+            <!-- <interceptor-ref name="fileUpload"/> -->
+            <result name="successXml"> /uploadXml.jsp</result> 
+            <result name="successText"> /uploadText.jsp</result> 
+       </action> 
+	</package>
+</struts>

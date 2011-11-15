@@ -1,0 +1,43 @@
+<graph label="Cytoscape Web" directed="1" Graphic="1" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:cy="http://www.cytoscape.org" xmlns="http://www.cs.rpi.edu/XGMML">
+  <att name="documentVersion" value="0.1"/>
+  <att type="string" name="backgroundColor" value="#ffffff"/>
+  <att type="real" name="GRAPH_VIEW_ZOOM" value="1"/>
+  <att type="real" name="GRAPH_VIEW_CENTER_X" value="285"/>
+  <att type="real" name="GRAPH_VIEW_CENTER_Y" value="324"/>
+  <node label="A" name="" id="-1">
+    <att name="notes" type="string" value=""/>
+    <att name="canonicalName" type="string" value="A"/>
+    <att name="Type" type="integer" value="1"/>
+    <att name="state" type="real" value="NaN"/>
+    <graphics x="284" y="279" w="40" cy:nodeLabelFont="Arial-0-15" type="ELLIPSE" labelanchor="c" fill="#ff99ff" width="3" h="40" outline="#ffffff" cy:nodeTransparency="0.8"/>
+  </node>
+  <node label="B" name="" id="-2">
+    <att name="notes" type="string" value=""/>
+    <att name="canonicalName" type="string" value="B"/>
+    <att name="Type" type="integer" value="1"/>
+    <att name="state" type="real" value="NaN"/>
+    <graphics x="249.5" y="369" w="40" cy:nodeLabelFont="Arial-0-15" type="ELLIPSE" labelanchor="c" fill="#ff99ff" width="3" h="40" outline="#ffffff" cy:nodeTransparency="0.8"/>
+  </node>
+  <node label="C" name="" id="-3">
+    <att name="notes" type="string" value=""/>
+    <att name="canonicalName" type="string" value="C"/>
+    <att name="Type" type="integer" value="1"/>
+    <att name="state" type="real" value="NaN"/>
+    <graphics x="320.5" y="369" w="40" cy:nodeLabelFont="Arial-0-15" type="ELLIPSE" labelanchor="c" fill="#ff99ff" width="3" h="40" outline="#ffffff" cy:nodeTransparency="0.8"/>
+  </node>
+  <edge label="A (1) B" source="-1" target="-2" directed="true" id="1">
+    <att name="notes" type="string" value=""/>
+    <att name="refs" type="list"/>
+    <att name="canonicalName" type="string" value="A (1) B"/>
+    <att name="state" type="string" value="NaN"/>
+    <att name="interaction" type="string" value="1"/>
+    <graphics cy:sourceArrow="0" cy:targetArrow="6" width="4" cy:sourceArrowColor="#000000" cy:edgeLineType="SOLID" fill="#0b94b1" cy:targetArrowColor="#000000"/>
+  </edge>
+  <edge label="A (-1) C" source="-1" target="-3" directed="true" id="2">
+    <att name="notes" type="string" value=""/>
+    <att name="refs" type="list"/>
+    <att name="canonicalName" type="string" value="A (-1) C"/>
+    <att name="interaction" type="string" value="-1"/>
+    <graphics cy:sourceArrow="0" cy:targetArrow="15" width="4" cy:sourceArrowColor="#000000" cy:edgeLineType="SOLID" fill="#0b94b1" cy:targetArrowColor="#000000"/>
+  </edge>
+</graph>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<graph label="Network" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:cy="http://www.cytoscape.org" xmlns="http://www.cs.rpi.edu/XGMML"  directed="1">
+  <att name="documentVersion" value="1.1"/>
+  <att name="networkMetadata">
+    <rdf:RDF>
+      <rdf:Description rdf:about="http://www.cytoscape.org/">
+        <dc:type>Protein-Protein Interaction</dc:type>
+        <dc:description>N/A</dc:description>
+        <dc:identifier>N/A</dc:identifier>
+        <dc:date>2011-02-16 16:53:50</dc:date>
+        <dc:title>Network</dc:title>
+        <dc:source>http://www.cytoscape.org/</dc:source>
+        <dc:format>Cytoscape-XGMML</dc:format>
+      </rdf:Description>
+    </rdf:RDF>
+  </att>
+  <att type="string" name="backgroundColor" value="#ffffff"/>
+  <att type="real" name="GRAPH_VIEW_ZOOM" value="1.0"/>
+  <att type="real" name="GRAPH_VIEW_CENTER_X" value="0.0"/>
+  <att type="real" name="GRAPH_VIEW_CENTER_Y" value="0.0"/>
+  <node label="andAB" id="-6">
+    <att type="real" name="Type" value="-2.0"/>
+    <att type="string" name="canonicalName" value="andAB"/>
+    <att type="real" name="state" value="NaN"/>
+    <graphics type="ELLIPSE" h="20.0" w="20.0" x="-53.0" y="-31.5" fill="#ff9999" width="1" outline="#666666" cy:nodeTransparency="1.0" cy:nodeLabelFont="SansSerif.bold-0-12" cy:borderLineType="solid"/>
+  </node>
+  <node label="A" id="-4">
+    <att type="real" name="Type" value="1.0"/>
+    <att type="string" name="canonicalName" value="A"/>
+    <att type="real" name="state" value="NaN"/>
+    <graphics type="ELLIPSE" h="40.0" w="40.0" x="-103.0" y="-105.5" fill="#ff9999" width="1" outline="#666666" cy:nodeTransparency="1.0" cy:nodeLabelFont="SansSerif.bold-0-12" cy:borderLineType="solid"/>
+  </node>
+  <node label="B" id="-3">
+    <att type="real" name="Type" value="1.0"/>
+    <att type="string" name="canonicalName" value="B"/>
+    <att type="real" name="state" value="NaN"/>
+    <graphics type="ELLIPSE" h="40.0" w="40.0" x="-2.0" y="-105.5" fill="#ff9999" width="1" outline="#666666" cy:nodeTransparency="1.0" cy:nodeLabelFont="SansSerif.bold-0-12" cy:borderLineType="solid"/>
+  </node>
+  <node label="C" id="-1">
+    <att type="real" name="Type" value="1.0"/>
+    <att type="string" name="canonicalName" value="C"/>
+    <att type="real" name="state" value="NaN"/>
+    <graphics type="ELLIPSE" h="40.0" w="40.0" x="-54.0" y="42.5" fill="#ff9999" width="1" outline="#666666" cy:nodeTransparency="1.0" cy:nodeLabelFont="SansSerif.bold-0-12" cy:borderLineType="solid"/>
+  </node>
+  <edge label="andAB (1) C" source="-6" target="-1">
+    <att type="string" name="canonicalName" value="andAB (1) C"/>
+    <att type="string" name="interaction" value="1" cy:editable="false"/>
+    <graphics width="1" fill="#0000ff" cy:sourceArrow="0" cy:targetArrow="3" cy:sourceArrowColor="#000000" cy:targetArrowColor="#0000ff" cy:edgeLabelFont="Default-0-10" cy:edgeLineType="SOLID" cy:curved="STRAIGHT_LINES"/>
+  </edge>
+  <edge label="A (1) andAB" source="-4" target="-6">
+    <att type="string" name="canonicalName" value="A (1) andAB"/>
+    <att type="string" name="interaction" value="1" cy:editable="false"/>
+    <graphics width="1" fill="#0000ff" cy:sourceArrow="0" cy:targetArrow="3" cy:sourceArrowColor="#000000" cy:targetArrowColor="#0000ff" cy:edgeLabelFont="Default-0-10" cy:edgeLineType="SOLID" cy:curved="STRAIGHT_LINES"/>
+  </edge>
+  <edge label="B (-1) andAB" source="-3" target="-6">
+    <att type="string" name="canonicalName" value="B (-1) andAB"/>
+    <att type="string" name="interaction" value="-1" cy:editable="false"/>
+    <graphics width="1" fill="#ff0033" cy:sourceArrow="0" cy:targetArrow="15" cy:sourceArrowColor="#000000" cy:targetArrowColor="#ff0033" cy:edgeLabelFont="Default-0-10" cy:edgeLineType="SOLID" cy:curved="STRAIGHT_LINES"/>
+  </edge>
+</graph>

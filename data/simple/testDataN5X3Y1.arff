@@ -1,0 +1,13 @@
+@relation testDataN5Xatt3Yattr1
+
+@attribute Weight numeric
+@attribute Waist numeric
+@attribute Pulse numeric
+@attribute Class numeric
+
+@data
+191,36,50,5
+189,37,52,2
+193,38,58,12
+162,35,62,12
+189,35,46,13

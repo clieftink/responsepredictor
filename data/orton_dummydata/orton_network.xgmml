@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<graph label="orton_network" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:cy="http://www.cytoscape.org" xmlns="http://www.cs.rpi.edu/XGMML"  directed="1">
+  <att name="documentVersion" value="1.1"/>
+  <att name="networkMetadata">
+    <rdf:RDF>
+      <rdf:Description rdf:about="http://www.cytoscape.org/">
+        <dc:type>Protein-Protein Interaction</dc:type>
+        <dc:description>N/A</dc:description>
+        <dc:identifier>N/A</dc:identifier>
+        <dc:date>2011-01-12 09:02:31</dc:date>
+        <dc:title>orton_network</dc:title>
+        <dc:source>http://www.cytoscape.org/</dc:source>
+        <dc:format>Cytoscape-XGMML</dc:format>
+      </rdf:Description>
+    </rdf:RDF>
+  </att>
+  <att type="string" name="backgroundColor" value="#ccccff"/>
+  <att type="real" name="GRAPH_VIEW_ZOOM" value="0.5507462686567164"/>
+  <att type="real" name="GRAPH_VIEW_CENTER_X" value="57.0"/>
+  <att type="real" name="GRAPH_VIEW_CENTER_Y" value="315.0"/>
+  <att type="string" name="__layoutAlgorithm" value="grid" cy:hidden="true"/>
+  <node label="EGFR" id="-9">
+    <att type="string" name="canonicalName" value="EGFR"/>
+    <graphics type="ELLIPSE" h="40.0" w="40.0" x="35.5" y="0.0" fill="#ff9999" width="1" outline="#666666" cy:nodeTransparency="1.0" cy:nodeLabelFont="SansSerif.bold-0-22" cy:borderLineType="solid"/>
+  </node>
+  <node label="PI3K" id="-8">
+    <att type="string" name="canonicalName" value="PI3K"/>
+    <graphics type="ELLIPSE" h="40.0" w="40.0" x="43.0" y="270.0" fill="#ff9999" width="1" outline="#666666" cy:nodeTransparency="1.0" cy:nodeLabelFont="SansSerif.bold-0-22" cy:borderLineType="solid"/>
+  </node>
+  <node label="BRAF" id="-7">
+    <att type="string" name="canonicalName" value="BRAF"/>
+    <graphics type="ELLIPSE" h="40.0" w="40.0" x="114.0" y="270.0" fill="#ff9999" width="1" outline="#666666" cy:nodeTransparency="1.0" cy:nodeLabelFont="SansSerif.bold-0-22" cy:borderLineType="solid"/>
+  </node>
+  <node label="SOS" id="-6">
+    <att type="string" name="canonicalName" value="SOS"/>
+    <graphics type="ELLIPSE" h="40.0" w="40.0" x="0.0" y="90.0" fill="#ff9999" width="1" outline="#666666" cy:nodeTransparency="1.0" cy:nodeLabelFont="SansSerif.bold-0-22" cy:borderLineType="solid"/>
+  </node>
+  <node label="AKT" id="-5">
+    <att type="string" name="canonicalName" value="AKT"/>
+    <graphics type="ELLIPSE" h="40.0" w="40.0" x="43.0" y="360.0" fill="#ff9999" width="1" outline="#666666" cy:nodeTransparency="1.0" cy:nodeLabelFont="SansSerif.bold-0-22" cy:borderLineType="solid"/>
+  </node>
+  <node label="MEK" id="-4">
+    <att type="string" name="canonicalName" value="MEK"/>
+    <graphics type="ELLIPSE" h="40.0" w="40.0" x="82.25" y="540.0" fill="#ff9999" width="1" outline="#666666" cy:nodeTransparency="1.0" cy:nodeLabelFont="SansSerif.bold-0-22" cy:borderLineType="solid"/>
+  </node>
+  <node label="RAS" id="-3">
+    <att type="string" name="canonicalName" value="RAS"/>
+    <graphics type="ELLIPSE" h="40.0" w="40.0" x="78.5" y="180.0" fill="#ff9999" width="1" outline="#666666" cy:nodeTransparency="1.0" cy:nodeLabelFont="SansSerif.bold-0-22" cy:borderLineType="solid"/>
+  </node>
+  <node label="RAF1" id="-2">
+    <att type="string" name="canonicalName" value="RAF1"/>
+    <graphics type="ELLIPSE" h="40.0" w="40.0" x="60.75" y="450.0" fill="#ff9999" width="1" outline="#666666" cy:nodeTransparency="1.0" cy:nodeLabelFont="SansSerif.bold-0-22" cy:borderLineType="solid"/>
+  </node>
+  <node label="P90RSK" id="-1">
+    <att type="string" name="canonicalName" value="P90RSK"/>
+    <graphics type="ELLIPSE" h="40.0" w="40.0" x="49.5" y="630.0" fill="#ff9999" width="1" outline="#666666" cy:nodeTransparency="1.0" cy:nodeLabelFont="SansSerif.bold-0-22" cy:borderLineType="solid"/>
+  </node>
+  <edge label="EGFR (+) PI3K" source="-9" target="-8">
+    <att type="string" name="canonicalName" value="EGFR (+) PI3K"/>
+    <att type="string" name="interaction" value="+" cy:editable="false"/>
+    <graphics width="1" fill="#000000" cy:sourceArrow="0" cy:targetArrow="6" cy:sourceArrowColor="#000000" cy:targetArrowColor="#000000" cy:edgeLabelFont="Default-0-10" cy:edgeLineType="SOLID" cy:curved="STRAIGHT_LINES"/>
+  </edge>
+  <edge label="EGFR (+) BRAF" source="-9" target="-7">
+    <att type="string" name="canonicalName" value="EGFR (+) BRAF"/>
+    <att type="string" name="interaction" value="+" cy:editable="false"/>
+    <graphics width="1" fill="#000000" cy:sourceArrow="0" cy:targetArrow="6" cy:sourceArrowColor="#000000" cy:targetArrowColor="#000000" cy:edgeLabelFont="Default-0-10" cy:edgeLineType="SOLID" cy:curved="STRAIGHT_LINES">
+      <att name="edgeBend">
+        <att name="handle" x="121.5" y="75.0" />
+      </att>
+    </graphics>
+  </edge>
+  <edge label="EGFR (+) SOS" source="-9" target="-6">
+    <att type="string" name="canonicalName" value="EGFR (+) SOS"/>
+    <att type="string" name="interaction" value="+" cy:editable="false"/>
+    <graphics width="1" fill="#000000" cy:sourceArrow="0" cy:targetArrow="6" cy:sourceArrowColor="#000000" cy:targetArrowColor="#000000" cy:edgeLabelFont="Default-0-10" cy:edgeLineType="SOLID" cy:curved="STRAIGHT_LINES"/>
+  </edge>
+  <edge label="PI3K (+) AKT" source="-8" target="-5">
+    <att type="string" name="canonicalName" value="PI3K (+) AKT"/>
+    <att type="string" name="interaction" value="+" cy:editable="false"/>
+    <graphics width="1" fill="#000000" cy:sourceArrow="0" cy:targetArrow="6" cy:sourceArrowColor="#000000" cy:targetArrowColor="#000000" cy:edgeLabelFont="Default-0-10" cy:edgeLineType="SOLID" cy:curved="STRAIGHT_LINES"/>
+  </edge>
+  <edge label="BRAF (+) MEK" source="-7" target="-4">
+    <att type="string" name="canonicalName" value="BRAF (+) MEK"/>
+    <att type="string" name="interaction" value="+" cy:editable="false"/>
+    <graphics width="1" fill="#000000" cy:sourceArrow="0" cy:targetArrow="6" cy:sourceArrowColor="#000000" cy:targetArrowColor="#000000" cy:edgeLabelFont="Default-0-10" cy:edgeLineType="SOLID" cy:curved="STRAIGHT_LINES">
+      <att name="edgeBend">
+        <att name="handle" x="114.0" y="465.0" />
+      </att>
+    </graphics>
+  </edge>
+  <edge label="SOS (+) RAS" source="-6" target="-3">
+    <att type="string" name="canonicalName" value="SOS (+) RAS"/>
+    <att type="string" name="interaction" value="+" cy:editable="false"/>
+    <graphics width="1" fill="#000000" cy:sourceArrow="0" cy:targetArrow="6" cy:sourceArrowColor="#000000" cy:targetArrowColor="#000000" cy:edgeLabelFont="Default-0-10" cy:edgeLineType="SOLID" cy:curved="STRAIGHT_LINES"/>
+  </edge>
+  <edge label="AKT (-) RAF1" source="-5" target="-2">
+    <att type="string" name="canonicalName" value="AKT (-) RAF1"/>
+    <att type="string" name="interaction" value="-" cy:editable="false"/>
+    <graphics width="1" fill="#000000" cy:sourceArrow="0" cy:targetArrow="15" cy:sourceArrowColor="#000000" cy:targetArrowColor="#000000" cy:edgeLabelFont="Default-0-10" cy:edgeLineType="SOLID" cy:curved="STRAIGHT_LINES"/>
+  </edge>
+  <edge label="MEK (+) P90RSK" source="-4" target="-1">
+    <att type="string" name="canonicalName" value="MEK (+) P90RSK"/>
+    <att type="string" name="interaction" value="+" cy:editable="false"/>
+    <graphics width="1" fill="#000000" cy:sourceArrow="0" cy:targetArrow="6" cy:sourceArrowColor="#000000" cy:targetArrowColor="#000000" cy:edgeLabelFont="Default-0-10" cy:edgeLineType="SOLID" cy:curved="STRAIGHT_LINES"/>
+  </edge>
+  <edge label="RAS (+) PI3K" source="-3" target="-8">
+    <att type="string" name="canonicalName" value="RAS (+) PI3K"/>
+    <att type="string" name="interaction" value="+" cy:editable="false"/>
+    <graphics width="1" fill="#000000" cy:sourceArrow="0" cy:targetArrow="6" cy:sourceArrowColor="#000000" cy:targetArrowColor="#000000" cy:edgeLabelFont="Default-0-10" cy:edgeLineType="SOLID" cy:curved="STRAIGHT_LINES"/>
+  </edge>
+  <edge label="RAS (+) RAF1" source="-3" target="-2">
+    <att type="string" name="canonicalName" value="RAS (+) RAF1"/>
+    <att type="string" name="interaction" value="+" cy:editable="false"/>
+    <graphics width="1" fill="#000000" cy:sourceArrow="0" cy:targetArrow="6" cy:sourceArrowColor="#000000" cy:targetArrowColor="#000000" cy:edgeLabelFont="Default-0-10" cy:edgeLineType="SOLID" cy:curved="STRAIGHT_LINES">
+      <att name="edgeBend">
+        <att name="handle" x="78.5" y="375.0" />
+      </att>
+    </graphics>
+  </edge>
+  <edge label="RAS (+) BRAF" source="-3" target="-7">
+    <att type="string" name="canonicalName" value="RAS (+) BRAF"/>
+    <att type="string" name="interaction" value="+" cy:editable="false"/>
+    <graphics width="1" fill="#000000" cy:sourceArrow="0" cy:targetArrow="6" cy:sourceArrowColor="#000000" cy:targetArrowColor="#000000" cy:edgeLabelFont="Default-0-10" cy:edgeLineType="SOLID" cy:curved="STRAIGHT_LINES"/>
+  </edge>
+  <edge label="RAF1 (+) MEK" source="-2" target="-4">
+    <att type="string" name="canonicalName" value="RAF1 (+) MEK"/>
+    <att type="string" name="interaction" value="+" cy:editable="false"/>
+    <graphics width="1" fill="#000000" cy:sourceArrow="0" cy:targetArrow="6" cy:sourceArrowColor="#000000" cy:targetArrowColor="#000000" cy:edgeLabelFont="Default-0-10" cy:edgeLineType="SOLID" cy:curved="STRAIGHT_LINES"/>
+  </edge>
+  <edge label="P90RSK (-) SOS" source="-1" target="-6">
+    <att type="string" name="canonicalName" value="P90RSK (-) SOS"/>
+    <att type="string" name="interaction" value="-" cy:editable="false"/>
+    <graphics width="1" fill="#000000" cy:sourceArrow="0" cy:targetArrow="15" cy:sourceArrowColor="#000000" cy:targetArrowColor="#000000" cy:edgeLabelFont="Default-0-10" cy:edgeLineType="SOLID" cy:curved="STRAIGHT_LINES">
+      <att name="edgeBend">
+        <att name="handle" x="-7.5" y="555.0" />
+      </att>
+    </graphics>
+  </edge>
+</graph>

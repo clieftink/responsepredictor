@@ -1,0 +1,1 @@
+Original code: http://www.jools.net/projects/javascript/scrollable-divs/    
