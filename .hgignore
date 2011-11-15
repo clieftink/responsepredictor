@@ -1,0 +1,9 @@
+
+syntax: regexp
+^build$
+syntax: regexp
+^WebContent/WEB-INF/classes$
+syntax: regexp
+^WebContent/reports$
+syntax: regexp
+^model/pathway/orton_pls/Rplots\.pdf$
