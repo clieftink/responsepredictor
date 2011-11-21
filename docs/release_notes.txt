@@ -1,0 +1,96 @@
+Release changes:
+
+1.2
+* Feature to run simulation for an observation using it's start and fixed values
+* Feature to edit observations
+* Panel for observations can be hidden.
+* Observations can now be values between 0 and 1 
+
+1.0b7
+* There is no longer a limitation to 32 nodes. Software is tested
+.. for 150 nodes.
+
+1.0b6
+* Added function to calculate score for modelchecking result.
+* Obs details now in the same table as the Master
+* Modelcheck score now calculated as ratio.
+* Added score to modelcheck result in webinterface
+* Solved issue not able to create new node or edge
+* Added notes field to node
+* Feature to edit existing node
+
+1.0beta5
+Solved issue:
+ID DESCRIPTION
+22 Details observations no longer drawn 
+
+
+1.0beta4
+Solved issues:
+ID DESCRIPTION
+19	After clicking edge, names nodes not correct in menu
+20	Json error for carriage return
+21. Flash component not working in Firefox on mac 
+
+
+1.0beta
+* Uses now Java implementation of the Odefy simulation engine. Matlab runtime engine is therefore no longer needed.
+* Added feature to add one or more observations and check the model against this observations
+
+When importing xgmml in which none of the nodes have a state field, this field is now added. It gets the default value
+null as NaN as not accepted. Apparently Cytoscape web converts this null to 0.
+ Before Cytoscape web already added the field in case of at least one node having the field. 
+
+-----------
+0.6.3
+ID  DESCRIPTION
+18   Option to change default start value 
+In case of created new MWArray objects, you have to free the memory afterward
+
+
+-----------
+0.6.2
+ID  DESCRIPTION
+15  Attempted to access LimsN(0) 
+
+-----------
+0.6.1
+Bugfixes:
+ID  DESCRIPTION
+12. In case all nodes are removed, new node gets as id inifinity. Changed this to 0.
+13. When closing window, give warning in case of unsaved changes.
+
+
+----------
+0.6.0
+Implemented calculation of steady state.
+
+-----------
+0.5.0
+Implemented checkbox for fixed values to mimic knockdown and/or constitutive active
+start values are now entered with select box with values 0 and 1, in stead of free text field
+
+---------------
+0.4.0
+Implemented "and" gates
+bugfix in the CNOimportSIF when using InputAsStrings=true and providing Type file. 
+The parsing in that case was based on '\t' in stead of a ' ' (space). 
+----------------
+0.3.3
+Constraint only one edge between two nodes
+Constraint only one node with a specific label, disregard any different use in casing.
+----------------
+0.3.2
+Added features to remove a node or edge.
+-----------------
+0.3.1
+Upgraded the integrated Cytoscape Web to version 0.7.2, which  fixes a defect where node positions were incorrect in exported XGMML.
+----------------
+0.3.0 
+With the 0.3.0 release, the project is limited to support pathway building and simulation. Features for building a phenotype model are temporarily removed from the application. 
+---------------
+Using now Cytoscape web, user can upload and edit networks and simulate them instantly using the integrated simulation engine of CellNetAnalyzer/Odefy.
+
+
+
+

@@ -1,0 +1,14 @@
+@relation testdataN5X3Y2
+
+@attribute Weight numeric
+@attribute Waist numeric
+@attribute Pulse numeric
+@attribute Y1 numeric
+@attribute Y2 numeric
+
+@data
+191,36,50,5,6
+189,37,52,2,1
+193,38,58,12,10
+162,35,62,12,14
+189,35,46,13,11

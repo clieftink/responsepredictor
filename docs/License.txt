@@ -1,0 +1,19 @@
+Responsepredictor is released under GPL v.3 (http://www.gnu.org/licenses/gpl.html).
+
+Responsepredictor uses Cytoscape Web (http://cytoscapeweb.cytoscape.org/) to visualize and interact with the network.
+Cytoscape Web is an open source project released under LGPL.
+
+(c) The Netherlands Cancer Institute 
+http://www.nki.nl/
+http://csbc.nki.nl/
+
+
+//** Smooth Navigational Menu- By Dynamic Drive DHTML code library: http://www.dynamicdrive.com
+"Users may use any DHTML scripts offered for download on Dynamic Drive, free of charge, on both personal and commercial web sites. 
+This includes web designers who wish to use our DHTML scripts in their paid web site projects." For full text see
+http://dynamicdrive.com/notice.htm
+
+
+
+
+

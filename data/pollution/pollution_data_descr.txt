@@ -1,0 +1,31 @@
+    * Data: pollution.txt
+    * Keywords: PCA, PCR, PLS.
+
+    * Description:
+
+      Ligninsulfonate, a compound released into water from sulfite pulp mills, contributes to the general pollution of 
+      seawaters and may be fatal to fish resources. This compound has been determined with some success by using 
+      fluorescence spectrometry. With this method, possible interferences arise from humic acid and detergents 
+      containing optical whiteners. The emission spectra of these compounds are severely overlapping and no 
+      spectral region with a single emitting compound can be found. Samples of multicomponent calibration 
+      solutions were prepared and subjected to fluorescence spectrometry. The data are from Lindberg et al. (1983), 
+      where they were also analyzed with several multivariate calibration techniques.
+
+    * Number of observations: 16
+
+      Variable 	Description
+      ha 	Humic acid,    g mL
+      ls 	Ligninsulfonate,    g mL
+      dt 	Detergent,    g mL
+      x1-x27 	Emission intensities at 27 equidistant wavelengths between 320 and 540 nm
+
+    * Source
+
+      Lindberg, W., Persson, J.-A. and Wold, S. (1983). Partial least squares method for spectrofluorimetric analysis of mixtures of 
+      humic acid and ligninsulfonate. Analytical Chemistry 55, 643-648.
+
+    * Analysis
+
+      Lindberg et al. (1983) used these data to illustrate the advantages of PLS in case severe interferences are present. 
+      
+      Downloaded from : http://statmaster.sdu.dk/courses/ST02/data/index.html#SEC1.4.3

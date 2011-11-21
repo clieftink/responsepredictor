@@ -1,0 +1,42 @@
+<graph label="Cytoscape Web" directed="1" Graphic="1" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:cy="http://www.cytoscape.org" xmlns="http://www.cs.rpi.edu/XGMML">
+  <att name="documentVersion" value="0.1"/>
+  <att type="string" name="backgroundColor" value="#ffffff"/>
+  <att type="real" name="GRAPH_VIEW_ZOOM" value="1"/>
+  <att type="real" name="GRAPH_VIEW_CENTER_X" value="613.75"/>
+  <att type="real" name="GRAPH_VIEW_CENTER_Y" value="350"/>
+  <node label="A" id="-25" name="">
+    <att name="canonicalName" type="string" value="A"/>
+    <att name="Type" type="integer" value="1"/>
+    <att name="state" type="real" value="1"/>
+    <graphics x="572" y="279.5" w="40" fill="#00ff00" width="3" outline="#ffffff" labelanchor="c" h="40" cy:nodeTransparency="0.8" cy:nodeLabelFont="Arial-0-15" type="ELLIPSE"/>
+  </node>
+  <node label="B" id="-46" name="">
+    <att name="canonicalName" type="string" value="B"/>
+    <att name="Type" type="integer" value="1"/>
+    <att name="state" type="real" value="0"/>
+    <graphics x="655.5" y="280.5" w="40" fill="#f85b5b" width="3" outline="#ffffff" labelanchor="c" h="40" cy:nodeTransparency="0.8" cy:nodeLabelFont="Arial-0-15" type="ELLIPSE"/>
+  </node>
+  <node label="C" id="-10" name="">
+    <att name="canonicalName" type="string" value="C"/>
+    <att name="Type" type="integer" value="1"/>
+    <att name="state" type="real" value="0"/>
+    <graphics x="618.5" y="420.5" w="40" fill="#f85b5b" width="3" outline="#ffffff" labelanchor="c" h="40" cy:nodeTransparency="0.8" cy:nodeLabelFont="Arial-0-15" type="ELLIPSE"/>
+  </node>
+  <node label="andAB" name="" id="-47">
+    <att name="canonicalName" type="string" value="andAB"/>
+    <att name="Type" type="integer" value="-2"/>
+    <graphics x="616" y="347" w="20" fill="#ff99ff" width="3" outline="#ffffff" labelanchor="c" h="20" cy:nodeTransparency="0.8" cy:nodeLabelFont="Arial-0-15" type="ELLIPSE"/>
+  </node>
+  <edge label="-25_-47" id="e1" target="-47" directed="true" source="-25">
+    <att name="interaction" type="string" value="1"/>
+    <graphics cy:sourceArrow="0" cy:targetArrow="6" width="3" cy:sourceArrowColor="#000000" cy:edgeLineType="SOLID" fill="#0b94b1" cy:targetArrowColor="#000000"/>
+  </edge>
+  <edge label="-46_-47" id="e2" target="-47" directed="true" source="-46">
+    <att name="interaction" type="string" value="1"/>
+    <graphics cy:sourceArrow="0" cy:targetArrow="6" width="3" cy:sourceArrowColor="#000000" cy:edgeLineType="SOLID" fill="#0b94b1" cy:targetArrowColor="#000000"/>
+  </edge>
+  <edge label="-47_-10" id="e3" target="-10" directed="true" source="-47">
+    <att name="interaction" type="string" value="1"/>
+    <graphics cy:sourceArrow="0" cy:targetArrow="6" width="3" cy:sourceArrowColor="#000000" cy:edgeLineType="SOLID" fill="#0b94b1" cy:targetArrowColor="#000000"/>
+  </edge>
+</graph>
