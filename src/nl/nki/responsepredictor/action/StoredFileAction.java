@@ -8,7 +8,7 @@ import nl.nki.responsepredictor.RpHelper;
 
 import org.apache.struts2.interceptor.ServletRequestAware;
 
-public class StoredNetworkAction implements ServletRequestAware {
+public class StoredFileAction implements ServletRequestAware {
 	private HttpServletRequest request;
 
 	public void setServletRequest(HttpServletRequest httpServletRequest) {
@@ -17,12 +17,20 @@ public class StoredNetworkAction implements ServletRequestAware {
 
 	public String execute() throws IOException {
 		//currently not used as there is just one stored network
-		String storedNetworkId = request.getParameter("storedNetworkId");		
+		String storedFileId = request.getParameter("storedFileId");	
+		String fileType = request.getParameter("fileType");	
 		RpHelper helper = new RpHelper();
-		String file = "/networks/" + storedNetworkId + ".xgmml"; //+ "timeCourse543.tsv";
-		String network = helper.storedFileToString(request, file);
 		
-		request.setAttribute("network", network);
+		String file ="";
+		if (fileType.equals("observations"))
+			file = "/observations/" + storedFileId + ".json"; //+ "timeCourse543.tsv";
+
+		else 
+			file = "/networks/" + storedFileId + ".xgmml"; //+ "timeCourse543.tsv";
+		
+		file = helper.storedFileToString(request, file);
+		
+		request.setAttribute("file", file);
         return "success"; //final SUCCESS is not seen => compiler error 
         
         

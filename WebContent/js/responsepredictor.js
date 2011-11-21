@@ -1528,15 +1528,32 @@ function drawNetwork(data) {
 /**
  * Load stored Network
  */
-function storedNetwork(storedNetworkId) {
+function storedNetwork(storedFileId) {
 	var successFunction = function(data) {
 		drawNetwork(data);
 	};
 	var data = {
-		storedNetworkId : storedNetworkId
+		fileType : "network",
+		storedFileId : storedFileId
 	};
-	getResult(data, 'storedNetwork', "text", successFunction);
+	getResult(data, 'storedFile', "text", successFunction);
 }
+
+/**
+ * Load stored Network
+ */
+function storedObservation(storedFileId) {
+	var successFunction = function(data) {
+		RP.obs = data;
+		crObsView(0);
+	};
+	var data = {
+		fileType : "observations",
+		storedFileId : storedFileId
+	};
+	getResult(data, 'storedFile', "json", successFunction);
+}
+
 
 function createOption(value, text, sel) {
 	var option = document.createElement("option");
@@ -2762,11 +2779,20 @@ function setNetworkChanged(changed) {
 /*
  * makeHandler function to have the parameter set at assignment and not at
  * trigger
+ * 
+ * fileType : network, observation
+ * 
+ * 
  */
-function makeHandler(name) {
-	return function(evt) {
-		storedNetwork(name);
-	}
+function makeHandler(dir,name) {
+	if (dir == "networks")
+		return function(evt) {
+			storedNetwork(name);
+			};
+	else 
+		return function(evt) {
+		storedObservation(name);
+		};
 }
 
 function createLi(el, text, click) {
@@ -2780,16 +2806,27 @@ function createLi(el, text, click) {
 	return (li);
 }
 
-function addStoredNetworks() {
+function addStoredFiles(dir) {
 
 	successFunction = function(names) {
 		// var names = [ 'hill_2011_prior', 'vidal_2011_prior' ];
 		if (names.length > 0) {
-			var fileMenu = document.getElementById('fileMenu');
+			var menuId;
+			if (dir == "networks")
+				menuId = 'fileMenu';
+			else 
+				menuId = 'observationsMenu';
+			
+			var fileMenu = document.getElementById(menuId);
 			for ( var i = 0, len = names.length; i < len; i++) {
 				if (names[i] != ".empty.txt") {
-					var name = names[i].substring(0, names[i].length - 6);
-					var click = makeHandler(name);
+					var nrCharExt = 0;
+					if (dir == "networks")
+						nrCharExt=6;
+					else
+						nrCharExt=5;
+					var name = names[i].substring(0, names[i].length - nrCharExt);
+					var click = makeHandler(dir,name);
 					var li = createLi(fileMenu, name, click);
 					fileMenu.appendChild(li);
 				}
@@ -2800,7 +2837,7 @@ function addStoredNetworks() {
 	};
 
 	var data = {
-		filesDir : 'networks'
+		filesDir : dir 
 	};
 
 	getResult(data, 'namesFiles', "json", successFunction);
@@ -2844,10 +2881,12 @@ function populateDataset() {
 
 }
 
+
 function initRpInterface() {
 
-	addStoredNetworks();
-
+	addStoredFiles('networks');
+	addStoredFiles('observations');
+	
 	ddsmoothmenu.init({
 		mainmenuid : "mainMenu", // Menu DIV id
 		orientation : 'h', // Horizontal or vertical menu: Set to "h" or "v"
