@@ -2650,8 +2650,10 @@ function createForm(formType, element) {
 		} else if (formType == "addEditObs") {
 			var headerText = "NEW";
 			var nameValue ="";
+			
 			if (typeof (element) != 'undefined') {
 				headerText = "EDIT";
+				appendHeader(frm, "Id: " + element.id);
 				nameValue = element.name;
 			}	
 			appendHeader(frm, "OBSERVATION: " + headerText);
