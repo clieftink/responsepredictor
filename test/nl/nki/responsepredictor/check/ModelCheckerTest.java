@@ -44,10 +44,10 @@ public class ModelCheckerTest {
 	@Test
 	public void runCheckBool() throws Exception {
 
-		String json = "[{\"id\":1,\"name\":\"ref\",\"start\":{\"-1\":\"0\",\"-2\":\"0\",\"-3\":\"0\"},"
-				+ "\"fixed\":[],\"end\":{\"-1\":0,\"-2\":\"0\",\"-3\":\"1\"}},"
-				+ "{\"id\":2,\"name\":\"exp\",\"start\":{\"-1\":\"0.7\",\"-2\":\"0\",\"-3\":\"0\"},"
-				+ "\"fixed\":[],\"end\":{\"-1\":0.8,\"-2\":\"0\",\"-3\":null}}]";
+		String json = "[{\"id\":1,\"name\":\"ref\",\"start\":{\"A\":\"0\",\"B\":\"0\",\"C\":\"0\"},"
+				+ "\"fixed\":[],\"end\":{\"A\":0,\"B\":\"0\",\"C\":\"1\"}},"
+				+ "{\"id\":2,\"name\":\"exp\",\"start\":{\"A\":\"0.7\",\"B\":\"0\",\"C\":\"0\"},"
+				+ "\"fixed\":[],\"end\":{\"A\":0.8,\"B\":\"0\",\"C\":null}}]";
 
 		Gson gson = new Gson();
 		Observation[] obs = gson.fromJson(json, Observation[].class);
@@ -153,19 +153,19 @@ public class ModelCheckerTest {
 		Network network = new Network(nodes, edges);
 
 		LinkedHashMap<String, Double> start = new LinkedHashMap<String, Double>();
-		start.put("-1",1.0);
-		start.put("-2",0.0);
-		start.put("-4",0.0);
-		start.put("-5",0.0);
+		start.put("A",1.0);
+		start.put("B",0.0);
+		start.put("C",0.0);
+		start.put("D",0.0);
 		
 		String[] fixed = new String[1];
-		fixed[0]="-1";
+		fixed[0]="A";
 		
 		LinkedHashMap<String, Double> end = new LinkedHashMap<String, Double>();
-		end.put("-1",1.0);
-		end.put("-2",1.0);
-		end.put("-4",0.0);
-		end.put("-5",0.0);
+		end.put("A",1.0);
+		end.put("B",1.0);
+		end.put("C",0.0);
+		end.put("D",0.0);
 		
 		Observation[] obs = new Observation[1];
 		obs[0] = new Observation("1", "obs1",start,fixed,end);
@@ -196,8 +196,8 @@ public class ModelCheckerTest {
 	@Test
 	public void runCheckBoolFixed() throws Exception {
 
-		String json = "[{\"id\":1,\"name\":\"exp\",\"start\":{\"-1\":\"1\",\"-2\":\"0\",\"-3\":\"0\"},"
-				+ "\"fixed\":[\"-2\"],\"end\":{\"-1\":1.0,\"-2\":\"0\",\"-3\":0}}]";
+		String json = "[{\"id\":1,\"name\":\"exp\",\"start\":{\"A\":\"1\",\"B\":\"0\",\"C\":\"0\"},"
+				+ "\"fixed\":[\"B\"],\"end\":{\"A\":1.0,\"B\":\"0\",\"C\":0}}]";
 
 		Gson gson = new Gson();
 		Observation[] obs = gson.fromJson(json, Observation[].class);
