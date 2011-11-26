@@ -2,7 +2,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 <head>
-<title>Responsepredictor 1.2.0</title>
+<title>Responsepredictor 1.2.1</title>
 
 <link rel="stylesheet" href="css/responsepredictor.css" type="text/css"
 	media="screen" />
@@ -50,33 +50,29 @@
 	<!--
 	<li onclick="getDummySimResult();"><a href="#">get dummy sim result</a></li>		
 	-->
-	<li><a href="#">File</a>
+	<li><a href="#">Network</a>
 	<ul id="fileMenu" onclick="resetMenuAndSim();">
 		<li onclick="emptyNetwork();"><a href="#">New network</a></li>
-		<li><a href="#">Network import <span id="networkImport"></span>
+		<li><a href="#">import <span id="networkImport"></span>
 		</a></li><!--
 		<li><a href="#">Network Export</a>
 		<ul>
-			--><li><a href="#">Network export <span id="networkExportXgmml"></span> </a></li><!--
+			--><li><a href="#">export <span id="networkExportXgmml"></span> </a></li><!--
 			<li><a href="#">sif <span id="networkExportSif"></span> </a></li>
 		</ul>
 		</li>
 	--></ul>
 	</li>
-	<li><a href="#">Build</a>
+	<li><a href="#">Node</a>
 	<ul>
-		<li><a href="#">Node</a>
-		<ul>
-			<li onclick="createForm('addEditNode');"><a href="#">Add</a></li>
-			<li onclick="createForm('removeNode');"><a href="#">Remove</a></li>
-		</ul>
-		</li>
-		<li><a href="#">Edge</a>
-		<ul>
-			<li onclick="createForm('addEditEdge');"><a href="#">Add</a></li>
-			<li onclick="createForm('removeEdge');"><a href="#">Remove</a></li>
-		</ul>
-		</li>
+		<li onclick="createForm('addEditNode');"><a href="#">Add</a></li>
+		<li onclick="createForm('removeNode');"><a href="#">Remove</a></li>
+	</ul>
+	</li>
+	<li><a href="#">Edge</a>
+	<ul>
+		<li onclick="createForm('addEditEdge');"><a href="#">Add</a></li>
+		<li onclick="createForm('removeEdge');"><a href="#">Remove</a></li>
 	</ul>
 	</li><!--
 	<li><a href="#">Improve</a>
@@ -97,20 +93,20 @@
 		<li onclick="setState(0);"><a href="#">Set state to 0</a></li>
 	</ul>
 	</li>
-	<li><a href="#">Check</a>
-	<ul>
+	<li><a href="#">Observations</a>
+	<ul id="observationsMenu">
 		<li onclick="openCloseObsPane();"><a href="#">Open/close
 		observation pane</a></li>
-		<li><a href="#">Observation(s)</a>
-		<ul>
-			<li onclick="createForm('addEditObs');"><a href="#">Add one</a></li>
-			<li><a onclick="resetMenuAndSim();" href="#">Import <span
-				id="obsImport"></span> </a></li>
-			<li><a onclick="resetMenuAndSim();" href="#">Export <span
-				id="obsExport"></span> </a></li>
-			<li><a onclick="clearObs();" href="#">Remove all observations</a></li>
-		</ul>
-		</li>
+		<li onclick="createForm('addEditObs');"><a href="#">Add</a></li>
+		<li><a onclick="resetMenuAndSim();" href="#">Import <span
+			id="obsImport"></span> </a></li>
+		<li><a onclick="resetMenuAndSim();" href="#">Export <span
+			id="obsExport"></span> </a></li>
+		<li><a onclick="clearObs();" href="#">Remove all</a></li>
+	</ul>
+	</li>
+	<li><a href="#">Check</a>
+	<ul>
 		<li onclick="getCheckResult();"><a href="#">Run check</a></li>
 	</ul>
 	</li>
