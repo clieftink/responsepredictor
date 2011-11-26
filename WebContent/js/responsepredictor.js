@@ -771,7 +771,7 @@ function getSimResult() {
 		},
 
 		type : 'post',
-		url : "updates",
+		url : "simulation",
 		dataType : "json", // , makes it of type object in stead of String
 		data : {
 			network : RP.vis.xgmml(),
@@ -2185,7 +2185,7 @@ function getNodesByType(inclTypes) {
  * @returns
  */
 
-function createTableNodeValues(inclEnd, obs, inputText) {
+function createTableNodeValues(idField,inclEnd, obs, inputText) {
 
 	var table = document.createElement("table");
 	var row = document.createElement("tr");
@@ -2207,15 +2207,15 @@ function createTableNodeValues(inclEnd, obs, inputText) {
 
 		// TODO get the value for the players id in the obs
 		if (typeof (obs) != 'undefined') {
-			var start = obs.start[node.data.id];
-			var end = obs.end[node.data.id];
+			var start = obs.start[node.data[idField]];
+			var end = obs.end[node.data[idField]];
 			if (!inputText) {
 				start=Math.round(start);
 				end=Math.round(end);
 			}
 			
 			var fixed = false;
-			if (obs.fixed.indexOf(node.data.id) > -1)
+			if (obs.fixed.indexOf(node.data[idField]) > -1)
 				fixed = true;
 			
 			var obsRec = {
@@ -2226,7 +2226,7 @@ function createTableNodeValues(inclEnd, obs, inputText) {
 
 		}
 
-		table.appendChild(addRow(node.data.id, node.data.label, inclEnd,
+		table.appendChild(addRow(node.data[idField], node.data.label, inclEnd,
 			obsRec,inputText));
 	}
 	return table;
@@ -2628,7 +2628,7 @@ function createForm(formType, element) {
 			buttonDef.appendChild(buttonText);
 			frm.appendChild(buttonDef);
 
-			var table = createTableNodeValues(false,element,false);
+			var table = createTableNodeValues("id",false,element,false);
 			frm.appendChild(table);
 
 			// Input for number of iterations
@@ -2679,7 +2679,7 @@ function createForm(formType, element) {
 			 * frm.appendChild(buttonDef);
 			 */
 
-			var table = createTableNodeValues(true, element,true);
+			var table = createTableNodeValues("label",true, element,true);
 			frm.appendChild(table);
 			buttonText = "save";
 			clickFunction = function() {
@@ -3156,16 +3156,16 @@ function drawDetails(tab, obsIndex) {
 			// check if an observation has an value for an particular node
 			var value = "";
 			if (i == 0) {
-				if (node.data.id in o.start)
-					value = o.start[node.data.id];
+				if (node.data.label in o.start)
+					value = o.start[node.data.label];
 			} else if (i == 1) {
-				if (o.fixed.indexOf(node.data.id) != -1)
+				if (o.fixed.indexOf(node.data.label) != -1)
 					value = "T";
 				else
 					value = "F";
 			} else if (i == 2) {
-				if (node.data.id in o.end)
-					value = o.end[node.data.id];
+				if (node.data.label in o.end)
+					value = o.end[node.data.label];
 			}
 
 			// last three rows
