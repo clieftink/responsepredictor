@@ -1769,15 +1769,17 @@ function addEditEdge(currentEdge) {
 }
 
 
-function getNodeIdLabelPlayers() {
+function getMapPlayers(key) {
 	
 	var map = {};
 	var players= getPlayers();
 	for ( var i = 0, len =players.length; i < len; i++) 
-		map[players[i].data.id] = players[i].data.label;
+		if (key == "id")
+			map[players[i].data.id] = players[i].data.label;
+		else //label 
+			map[players[i].data.label] = players[i].data.id;
 	
 	return map;
-	
 	
 }
 
@@ -2060,7 +2062,7 @@ function getIndexObsName(name) {
 function valuesBetween0and1(name,values) {
 
 	text="";
-	var map = getNodeIdLabelPlayers();
+	var map = getMapPlayers("id");
 	jQuery.each(values, function(key, value) {
 		if (values[key] < 0 || values[key] > 1) {
 			if (text !="")
@@ -2179,7 +2181,7 @@ function getNodesByType(inclTypes) {
  * 
  * 
  * @param inclEnd
- * @param obs
+ * @param obs: in case of click on observation to run simulation
  * @param text :
  *            if true , than input = textfield, other wise select field
  * @returns
@@ -2207,15 +2209,15 @@ function createTableNodeValues(idField,inclEnd, obs, inputText) {
 
 		// TODO get the value for the players id in the obs
 		if (typeof (obs) != 'undefined') {
-			var start = obs.start[node.data[idField]];
-			var end = obs.end[node.data[idField]];
+			var start = obs.start[node.data.label];
+			var end = obs.end[node.data.label];
 			if (!inputText) {
 				start=Math.round(start);
 				end=Math.round(end);
 			}
 			
 			var fixed = false;
-			if (obs.fixed.indexOf(node.data[idField]) > -1)
+			if (obs.fixed.indexOf(node.data.label) > -1)
 				fixed = true;
 			
 			var obsRec = {
@@ -2422,10 +2424,15 @@ function simFormSetNetwork(element) {
 		for ( var i = 0, len = nodeIds.length; i < len; i++) 
 			state[nodeIds[i]] = 0;
 		
+		var map = getMapPlayers("label");
+		
 		jQuery.each(element.start, function(key, value) {
-			var idx = nodeIds.indexOf(key);
+			//key is in terms of label.
+			var id = map[key];
+			
+			var idx = nodeIds.indexOf(id);
 			if (idx > -1) 
-				state[key] =Math.round(value);
+				state[id] =Math.round(value);
 		});
 		states[0]= state;
 	}
