@@ -2,7 +2,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 <head>
-<title>Responsepredictor 1.3.0beta</title>
+<title>Responsepredictor 1.2.1</title>
 
 <link rel="stylesheet" href="css/responsepredictor.css" type="text/css"
 	media="screen" />

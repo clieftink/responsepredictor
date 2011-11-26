@@ -1,5 +1,11 @@
 Release changes:
 
+1.2.1
+* Nodes in observations (again) identified by label in stead of id. Reasons for these are:
+1. no need to keep node ids in sync in case working on multiple networks
+2. In Cytoscape ids can be changed following delete of nodes.
+
+
 1.2
 * Feature to run simulation for an observation using it's start and fixed values
 * Feature to edit observations
