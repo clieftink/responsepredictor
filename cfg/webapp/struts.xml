@@ -6,7 +6,7 @@
 
 <struts>
 	<package name="default" extends="struts-default">
-        <action name="updates" class="nl.nki.responsepredictor.action.SimulationAction">
+        <action name="simulation" class="nl.nki.responsepredictor.action.SimulationAction">
      		<result name="success"> /updates.jsp</result>
      		<!-- <result name="error"> /error.jsp</result>  -->
 		</action>
@@ -19,8 +19,8 @@
         <action name="namesFiles" class="nl.nki.responsepredictor.action.NamesFilesAction">
         	<result name="success"> /namesFiles.jsp</result> 
         </action>
-        <action name="storedNetwork" class="nl.nki.responsepredictor.action.StoredNetworkAction">
-            <result name="success"> /network.jsp</result> 
+        <action name="storedFile" class="nl.nki.responsepredictor.action.StoredFileAction">
+            <result name="success"> /file.jsp</result> 
         </action>      
         <action name="upload" class="nl.nki.responsepredictor.action.UploadAction" method="upload">
             <!-- <interceptor-ref name="fileUpload"/> -->
