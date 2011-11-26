@@ -1,5 +1,7 @@
 package nl.nki.responsepredictor.check;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Set;
@@ -16,6 +18,12 @@ import org.apache.commons.lang.ArrayUtils;
 
 public class ModelChecker {
 
+	/**
+	 * In case the node mentioned in the observation is not in the network, than
+	 * not added to the hashmap
+	 * 
+	 */
+
 	public LinkedHashMap<String, Double> convertFromLabelToId(
 			LinkedHashMap<String, Double> inputValues,
 			LinkedHashMap<String, RpNode> labelNode) {
@@ -26,23 +34,34 @@ public class ModelChecker {
 		String id = null;
 		while (itr.hasNext()) {
 			String key = (String) itr.next();
-			id = ((RpNode) labelNode.get(key)).getId();
-			outputValues.put(id, inputValues.get(key));
+			RpNode node = labelNode.get(key);
+			if (node != null) 
+				outputValues.put(node.getId(), inputValues.get(key));
 		}
 
 		return outputValues;
 	}
-	
-	
-	public String[] convertFromLabelToId(
-			String[] inputValues,
-			LinkedHashMap<String, RpNode> labelNode) {
-		
-		String[] outputValues = new String[inputValues.length];
-		for (int i= 0; i < inputValues.length; i++) 
-			outputValues[i] = ((RpNode) labelNode.get(inputValues[i])).getId();
 
-		return outputValues;
+	/**
+	 * In case the node mentioned in the observation is not in the network, than
+	 * not added to the hashmap
+	 * 
+	 */
+
+	
+	public String[] convertFromLabelToId(String[] inputValues,
+			LinkedHashMap<String, RpNode> labelNode) {
+
+		
+		ArrayList<String> outputValues = new ArrayList<String>();
+
+		for (int i = 0; i < inputValues.length; i++) {
+			RpNode node  = labelNode.get(inputValues[i]);
+			if (node != null)
+				outputValues.add(node.getId());
+		}
+
+		return (String[]) outputValues.toArray(new String[0]);
 	}
 
 	/**
@@ -100,8 +119,8 @@ public class ModelChecker {
 					obs[i].getStart(), labelNode);
 
 			// TODO convert from label to id
-			String[] fixed = convertFromLabelToId(obs[i].getFixed(),labelNode);
-			
+			String[] fixed = convertFromLabelToId(obs[i].getFixed(), labelNode);
+
 			RpSimulation rpSim = new RpSimulation();
 			Matrix simResult = rpSim.runNetwork("STEADYSTATE", boolModel,
 					startValues, fixed, 0);
