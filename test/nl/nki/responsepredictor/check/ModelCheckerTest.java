@@ -88,7 +88,7 @@ public class ModelCheckerTest {
 	}
 
 	/**
-	 * Returns 0.5 in case node not in steady state
+	 * Returns 9 in case node not in steady state
 	 * 
 	 * @throws Exception
 	 */
@@ -122,7 +122,7 @@ public class ModelCheckerTest {
 
 		// TODO fixed exp values for nodes with fixed values is null
 		String[] keys = { "A", "B" };
-		double[][] expRes = { { 0.5, 0.5 } };
+		double[][] expRes = { { 9.0, 9.0 } };
 
 		// TODO check in case an observation does not provide a steady state
 		// and therefore result[1]=null
