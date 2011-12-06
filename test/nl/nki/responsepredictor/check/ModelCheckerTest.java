@@ -93,8 +93,8 @@ public class ModelCheckerTest {
 	 * @throws Exception
 	 */
 
-/*	TODO once the bug is solved in StateSpace, add the Junit test
- * 	@Test
+
+ 	@Test
 	public void runCheckBoolNoSteady() throws Exception {
 		String[] eqs = { "A=!B", "B=A" };
 		EquationModel m = new EquationModel(eqs);
@@ -131,7 +131,7 @@ public class ModelCheckerTest {
 			assertTrue("j=" + j + ",\"-2\",expRes[0][j]: " + expRes[0][j]
 					+ ", res[0][j]:" + res[0][j], res[0][j] == expRes[0][j]);
 
-	}*/
+	}
 
 	@Test
 	public void runCheckBoolNoSteady2() throws Exception {
