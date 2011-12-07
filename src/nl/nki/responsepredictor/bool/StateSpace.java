@@ -135,6 +135,9 @@ public final class StateSpace {
 		// if this SP graph has a steady state, it cannot have a circle or a partial steady state
 		if (ss.size()>0)
 			return null;
+		// if it does not have an initial node, the SP essentially consist of circles (one or more) 
+		if (initial.size()==0)
+			return null;
 		
 		// start from initial state and go forwards until we found the circle
 		Node cur=graph.get(initial.get(0));
