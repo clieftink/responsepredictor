@@ -109,8 +109,8 @@ public class ModelCheckerTest {
 
 		Network network = new Network(nodes, edges);
 
-		String json = "[{\"id\":1,\"name\":\"ref\",\"start\":{\"-1\":\"1\",\"-2\":\"0\"},"
-				+ "\"fixed\":[],\"end\":{\"-1\":0,\"-2\":\"1\"}}]";
+		String json = "[{\"id\":1,\"name\":\"ref\",\"start\":{\"A\":\"1\",\"B\":\"0\"},"
+				+ "\"fixed\":[],\"end\":{\"A\":0,\"B\":\"1\"}}]";
 
 		Gson gson = new Gson();
 		Observation[] obs = gson.fromJson(json, Observation[].class);
@@ -128,7 +128,7 @@ public class ModelCheckerTest {
 		// and therefore result[1]=null
 
 		for (int j = 0; j < 2; j++)
-			assertTrue("j=" + j + ",\"-2\",expRes[0][j]: " + expRes[0][j]
+			assertTrue("j=" + j + ",expRes[0][j]: " + expRes[0][j]
 					+ ", res[0][j]:" + res[0][j], res[0][j] == expRes[0][j]);
 
 	}
