@@ -84,15 +84,17 @@ public class RpSimulation {
 			int n = sp.numVariables();
 
 			// in case of synchronous there is max 1 steady state
-			resBytes = new byte[1][n];
+
 			byte[] pss = sp.partialSteadyState();
-			if ( pss != null)
+			if ( pss != null){
+				resBytes = new byte[1][n];
 				resBytes[0] = pss;
-			else {
+			}else {
 				// in case of synchronous there is max 1 steady state
 				Object[] ssArray = sp.ss().toArray();
 				if (ssArray.length > 0) {
 					BooleanState state = (BooleanState) ssArray[0];
+					resBytes = new byte[1][n];
 					resBytes[0] = state.b;
 				}
 			}
