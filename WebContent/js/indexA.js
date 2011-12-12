@@ -1,6 +1,6 @@
     var g_iHeaderHeight;
-    var g_iLeftDivWidth = 200;		// Initial Width of the Left Div
-    var g_iBottomDivHeight = 200;	// Initial Height of the Bottom Div
+    var g_cyWebDivWidth =600;		
+    var g_formBarWidth = 271;
     var g_bBarMoving = false;
     var g_bVert = false;
 
@@ -13,39 +13,49 @@
 
     function OnResizeIndex()
     {
-    	var divLeft = document.getElementById("cytoscapeweb");
-    	var divMain = document.getElementById("divMain");
-    	var divBottom = document.getElementById("divBottom");
+    	var divCyWeb = document.getElementById("cytoscapeweb");
+    	var divObs = document.getElementById("obs");
 
     	// Width
     	var sWidth = new String();
-    	sWidth = g_iLeftDivWidth.toString();
+    	sWidth = g_cyWebDivWidth.toString();
     	sWidth += "px";
-    	divLeft.style.width = sWidth;
+    	divCyWeb.style.width = sWidth;
+    	
+    	var iLeft = g_formBarWidth + 3;
+    	sLeft = iLeft.toString();
+    	sLeft += "px";
+    	divCyWeb.style.left = sLeft;
+    	
 
-    	var iWidth = document.body.clientWidth - g_iLeftDivWidth - 20;
+    	var iWidth = document.body.clientWidth - g_cyWebDivWidth - g_formBarWidth - 20;
     	sWidth = iWidth.toString();
     	sWidth += "px";
-    	divMain.style.width = sWidth;
+    	divObs.style.width = sWidth;
+    	
+    	var iLeft = g_cyWebDivWidth + g_formBarWidth + 3;
+    	sLeft = iLeft.toString();
+    	sLeft += "px";
+    	divObs.style.left = sLeft;
+    	
 
-    	iWidth = document.body.clientWidth - 10;
+/*    	iWidth = document.body.clientWidth - 10;
     	sWidth = iWidth.toString();
     	sWidth += "px";
-    	divBottom.style.width = sWidth;
+    	divBottom.style.width = sWidth;*/
 
     	// Height
     	var sHeight = new String();
-    	var iHeight = document.body.clientHeight - g_iBottomDivHeight - g_iHeaderHeight - 13;
+    	var iHeight = document.body.clientHeight - g_iHeaderHeight - 13;
     	if (iHeight < 5)
     		iHeight = 5;
     	sHeight = iHeight.toString();
     	sHeight += "px";
-    	divLeft.style.height = sHeight;
-    	divMain.style.height = sHeight;
-
-    	sHeight = g_iBottomDivHeight.toString();
-    	sHeight += "px";
-    	divBottom.style.height = sHeight;
+    	divCyWeb.style.height = sHeight;
+    	divObs.style.height = sHeight;
+    	
+    	
+    	
 
     	// VertBar
     	var divVertBar = document.getElementById("divVertBar");
@@ -56,26 +66,11 @@
 
     	// left
     	var sLeft = new String();
-    	var iLeft = g_iLeftDivWidth + 3;
+    	var iLeft = g_cyWebDivWidth + g_formBarWidth + 3;
     	sLeft = iLeft.toString();
     	sLeft += "px";
     	divVertBar.style.left = sLeft;
 
-    	// HorzBar
-    	var divHorzBar = document.getElementById("divHorzBar");
-
-    	// width
-    	iWidth = document.body.clientWidth - 2;
-    	sWidth = iWidth.toString();
-    	sWidth += "px";
-    	divHorzBar.style.width = sWidth;
-
-    	// top
-    	var sTop = new String();
-    	iHeight = document.body.clientHeight - g_iBottomDivHeight - 10;
-    	sTop = iHeight.toString();
-    	sTop += "px";
-    	divHorzBar.style.top = sTop;
     }
 
     function OnMouseDownBar(bVert, evt)
@@ -96,15 +91,9 @@
     		var divPhantomBar = document.getElementById("divPhantomBar");
     		if (g_bVert)
     		{
-    			g_iLeftDivWidth = parseInt(divPhantomBar.style.left) - 3;
-    			if (document.body.clientWidth - g_iLeftDivWidth < 50)
-    				g_iLeftDivWidth = document.body.clientWidth - 50;
-    		}
-    		else
-    		{	
-    			g_iBottomDivHeight = document.body.clientHeight - parseInt(divPhantomBar.style.top) - 10;
-    			if (g_iBottomDivHeight < 20)
-    				g_iBottomDivHeight = 20;
+    			g_cyWebDivWidth = parseInt(divPhantomBar.style.left) - g_formBarWidth - 3;
+    			if (document.body.clientWidth - g_cyWebDivWidth < 50)
+    				g_cyWebDivWidth = document.body.clientWidth - 50;
     		}
 
     		divPhantomBar.style.display = 'none';
@@ -131,7 +120,7 @@
     	var sTop = new String();
     	if (g_bVert)
     	{
-    		var iHeight = document.body.clientHeight - g_iBottomDivHeight - g_iHeaderHeight - 15;
+    		var iHeight = document.body.clientHeight - g_iHeaderHeight - 15;
     		iHeight = iHeight + 10;
     		sHeight = iHeight.toString();
     		sHeight += "px";
