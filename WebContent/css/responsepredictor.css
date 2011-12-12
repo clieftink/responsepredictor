@@ -66,13 +66,13 @@ div#divSimControlPanel {
 	left: 0px;
 }
 
-div#cytoscapeweb {
+/* div#cytoscapeweb {
 	position: absolute;
 	left : 271px;
 	height: 96%;
 	top: 40px;
 	width: 82%;
-}
+} */
 
 div#obs {
 	position: absolute;
