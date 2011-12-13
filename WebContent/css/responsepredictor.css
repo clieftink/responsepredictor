@@ -75,9 +75,9 @@ div#divSimControlPanel {
  */} 
 
 div#obs {
-/* 	position: absolute;
-	right : 0px;
-	height: 96%;
+ 	position: absolute;
+/* 	right : 0px;
+ */	height: 96%;
 	top: 40px;
 	/* width: 41%; */ 
 	background: lightblue;
