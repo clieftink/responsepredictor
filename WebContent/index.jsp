@@ -94,8 +94,8 @@
 	</li>
 	<li><a href="#">Observations</a>
 	<ul id="observationsMenu">
-		<li onclick="openCloseObsPane();"><a href="#">Open/close
-		observation pane</a></li>
+<!-- 		<li onclick="openCloseObsPane();"><a href="#">Open/close
+		observation pane</a></li> -->
 		<li onclick="createForm('addEditObs');"><a href="#">Add</a></li>
 		<li><a onclick="resetMenuAndSim();" href="#">Import <span
 			id="obsImport"></span> </a></li>
@@ -134,7 +134,7 @@
 </div>
 
 <!-- Vertical Bar -->
-<div id="divVertBar" onmousedown="return OnMouseDownBar(true, event);" style="cursor:col-resize;font-size:3pt;position:absolute;width:5px;background-color:black"></div>
+<div id="divVertBar" onmousedown="return OnMouseDownBar(true, event);" style="cursor:col-resize;font-size:3pt;position:absolute;width:5px;background-color:black">ddd</div>
 
 <!--
 <div id="divHorzBar" onmousedown="return OnMouseDownBar(false, event);" style="cursor:row-resize;font-size:3pt;position:absolute;width:100%;height:4px;background-color:blue"></div>
@@ -144,7 +144,7 @@
 
 <table cellpadding=0 cellspacing=0 style="border:3px solid blue">
 	<tr>
-		<td style="border:2px solid white"><div id="cytoscapeweb" style="overflow:auto">This is the Left DIV</div></td>
+		<td style="border:2px solid white"><div id="cytoscapeweb" style="overflow:auto">This is the cytoscape panel</div></td>
 		<td style="border:2px solid white"><div id="obs" style="overflow:auto">Observation panel<br><br><br>
 		</div></td>
 	</tr>

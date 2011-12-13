@@ -81,7 +81,7 @@ div#obs {
 	top: 40px;
 	/* width: 41%; */ 
 	background: lightblue;
-	visibility: hidden;
+	/*visibility: hidden;*/
 }
 
 .rowSelected {

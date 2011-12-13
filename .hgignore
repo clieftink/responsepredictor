@@ -7,3 +7,5 @@ syntax: regexp
 ^WebContent/reports$
 syntax: regexp
 ^model/pathway/orton_pls/Rplots\.pdf$
+^WebContent/networks/csbc_prior_hct116.xgmml
+^WebContent/observations/hct116.json
