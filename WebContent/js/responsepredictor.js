@@ -45,7 +45,7 @@ var RP = {
 	},
 	baseColor : '#3EA99F',
 	datasets : null, // contains the names of the datasets. Works as cache.
-	divModelCheckVisible : false
+	//divModelCheckVisible : false
 };
 
 // extension
@@ -2023,8 +2023,8 @@ function removeNode(nodeId) {
 		RP.vis.removeNode(node);
 		
 		// In the obsview only the nodes in the network are shown
-		if (RP.divModelCheckVisible)
-			crObsView(0);
+		//if (RP.divModelCheckVisible)
+		crObsView(0);
 			
 	}
 }
@@ -3128,7 +3128,7 @@ function initRpInterface() {
 
 	RP.vis.draw(drawOptions);
 	
-	openCloseObsPane();
+	//openCloseObsPane();
 
 };
 
@@ -3348,7 +3348,7 @@ function activateImporter() {
 
 }
 
-function openCloseObsPane() {
+/*function openCloseObsPane() {
 	var divWeb = document.getElementById('cytoscapeweb');
 	var divObs = document.getElementById('obs');
 	if (RP.divModelCheckVisible) {
@@ -3362,7 +3362,7 @@ function openCloseObsPane() {
 
 	RP.divModelCheckVisible = !RP.divModelCheckVisible;
 
-}
+}*/
 function getDummySimResult() {
 	resetSim();
 	RP.states = [ {
@@ -3415,42 +3415,65 @@ function clearObs() {
 }
 
 var g_iHeaderHeight;
-var g_phantomBarLeft = 874; //600 + 271 + 3;
-var g_cyWebDivWidth =600;		
 var g_formBarWidth = 271;
+var g_phantomBarLeft; 
 var g_bBarMoving = false;
 var g_bVert = false;
+var g_sizeVertBar = 5;
 
 function OnLoadIndex()
 {
 	var divHeader = document.getElementById("divHeader");
 	g_iHeaderHeight = parseInt(divHeader.style.height);
+	g_phantomBarLeft = g_formBarWidth + Math.round((document.body.clientWidth - g_formBarWidth)/2) + 1;
+
 	OnResizeIndex();
 }
+
+
+/* layout:
+ * 	formbar - cyweb-panel - vertbar - obs-panel  
+ * 
+ */
 
 function OnResizeIndex()
 {
 	var divCyWeb = document.getElementById("cytoscapeweb");
 	var divObs = document.getElementById("obs");
-
+	
 	// Width
-	var sWidth = new String();
-	sWidth = g_cyWebDivWidth.toString();
+	var cyWebWidth = g_phantomBarLeft -1 - g_formBarWidth;
+	var sWidth = cyWebWidth.toString();
 	sWidth += "px";
 	divCyWeb.style.width = sWidth;
 	
-	var iLeft = g_formBarWidth + 3;
+	var iLeft = g_formBarWidth + 1;
 	sLeft = iLeft.toString();
 	sLeft += "px";
 	divCyWeb.style.left = sLeft;
 	
+	
+	// VertBar 5px width
+	var divVertBar = document.getElementById("divVertBar");
+/*	iHeight = iHeight + 3;
+	sHeight = iHeight.toString();
+	sHeight += "px";
+	divVertBar.style.height = sHeight;*/
 
-	var iWidth = document.body.clientWidth - g_cyWebDivWidth - g_formBarWidth - 20;
+	// left
+	var sLeft = new String();
+	var iLeft = g_phantomBarLeft ;
+	sLeft = iLeft.toString();
+	sLeft += "px";
+	divVertBar.style.left = sLeft;
+	
+	
+	var iWidth = document.body.clientWidth - g_formBarWidth - cyWebWidth - g_sizeVertBar - 20;
 	sWidth = iWidth.toString();
 	sWidth += "px";
 	divObs.style.width = sWidth;
 	
-	var iLeft = g_cyWebDivWidth + g_formBarWidth + 4;
+	var iLeft = g_formBarWidth + cyWebWidth + g_sizeVertBar + 1;
 	sLeft = iLeft.toString();
 	sLeft += "px";
 	divObs.style.left = sLeft;
@@ -3470,21 +3493,7 @@ function OnResizeIndex()
 	sHeight += "px";
 	divCyWeb.style.height = sHeight;
 	divObs.style.height = sHeight;
-	
-
-	// VertBar
-	var divVertBar = document.getElementById("divVertBar");
-	iHeight = iHeight + 3;
-	sHeight = iHeight.toString();
-	sHeight += "px";
 	divVertBar.style.height = sHeight;
-
-	// left
-	var sLeft = new String();
-	var iLeft = g_formBarWidth + g_cyWebDivWidth +  3;
-	sLeft = iLeft.toString();
-	sLeft += "px";
-	divVertBar.style.left = sLeft;
 
 }
 
@@ -3506,9 +3515,9 @@ function OnMouseUpBar()
 		var divPhantomBar = document.getElementById("divPhantomBar");
 		if (g_bVert)
 		{
-			g_cyWebDivWidth = parseInt(divPhantomBar.style.left) - g_formBarWidth - 3;
-			if (document.body.clientWidth - g_cyWebDivWidth < 50)
-				g_cyWebDivWidth = document.body.clientWidth - 50;
+			g_phantomBarLeft = parseInt(divPhantomBar.style.left);
+/*			if (g_phantomBarLeft - g_cyWebDivWidth < 50)
+				g_cyWebDivWidth = document.body.clientWidth - 50;*/
 		}
 
 		divPhantomBar.style.display = 'none';
