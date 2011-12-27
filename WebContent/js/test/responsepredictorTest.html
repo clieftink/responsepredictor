@@ -1,0 +1,87 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" 
+                    "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<link rel="stylesheet" href="qunit.css" type="text/css" media="screen" />
+<script type="text/javascript" src="qunit.js"></script>
+<script type="text/javascript" src="../src/responsepredictor.js"></script>
+
+
+<script>
+	function checkResult(nodes,expected){
+		for (i=0; i < nodes.length; i++) {
+			var node_i = nodes[i];
+			
+			//equals cannot compare NaN
+			if (isNaN(node_i.data.state) && isNaN(expected[i])) {
+				ok(true,"Test for node " + i);
+			}else 
+				equals(node_i.data.state, expected[i], "Test for node " + i);		
+		}		
+	}
+
+
+	$(document).ready(function() {
+
+		var node1 = {
+				data : {
+					id : "-1",
+					canonicalName: "a",
+					state : 0
+				}
+			};
+
+			var node2 = {
+				data : {
+					id : "-2",
+					canonicalName: "b",
+					state : 1
+				}
+			};
+
+			var node3 = {
+				data : {
+					id : "-3",
+					canonicalName: "c",
+					state : 0
+				}
+			};
+
+			var nodes = [ node1, node2, node3 ];
+
+		test("Test updateFunction based on id", function() {
+			var states = {
+					'-1':2,
+					'-2':3,
+					'-3':4,
+					}; 
+		    updateState(nodes,states,"id");
+			checkResult(nodes, [2,3,4]);
+		});
+
+		<!-- updates with NaN not posssible -->
+		test("Test updateFunction based on canonicalName", function() {
+			var states = {
+                    'a':NaN,
+					'b':4,
+					'c':5
+					}; 
+		    updateState(nodes,states,"canonicalName");
+			checkResult(nodes,[2,4,5]);
+		}); 
+		
+
+	});
+</script>
+
+</head>
+<body>
+<h1 id="qunit-header">Responsepredictor javascript tests</h1>
+<h2 id="qunit-banner"></h2>
+<div id="qunit-testrunner-toolbar"></div>
+<h2 id="qunit-userAgent"></h2>
+<ol id="qunit-tests"></ol>
+<div id="qunit-fixture">test markup, will be hidden</div>
+</body>
+</html>

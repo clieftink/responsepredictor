@@ -1,0 +1,14 @@
+egfr	+	pi3k
+egfr	+	braf
+egfr	+	sos
+pi3k	+	akt
+braf	+	mek
+sos	+	ras
+ras	+	pi3k
+ras	+	raf1
+ras	+	braf
+akt	-	raf1
+raf1	+	mek
+mek	+	p90rsk
+p90rsk	-	sos
+mtor	-	akt

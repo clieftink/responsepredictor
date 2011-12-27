@@ -1,0 +1,5 @@
+"ID:sample","TR:celline:CellLine","TR:egf","TR:meki","DV:pProtA","DV:pProtB","DA:pProtA","DA:pProtA"
+"MCF7S.S+EGF","MCF7",1,0,"0.8","0.5",20,20
+"MCF7S+E+Meki","MCF7",1,1,"0.7","0.4",20,20
+"MCF7S.S+EGF_t0","MCF7",1,0,"0.6","0.3",0,0
+"MCF7S+E+Meki_t0","MCF7",1,1,"0.5","0.2",0,0

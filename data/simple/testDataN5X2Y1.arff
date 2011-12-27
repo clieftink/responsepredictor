@@ -1,0 +1,12 @@
+@relation testDataN5X2Y1
+
+@attribute Weight numeric
+@attribute Waist numeric
+@attribute Class numeric
+
+@data
+191,36,5
+189,37,2
+193,38,12
+162,35,12
+189,35,13
