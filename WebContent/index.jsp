@@ -35,11 +35,14 @@
 <!--color range -->
 <script type="text/javascript" src="js/jquery.colors.bundle.js"></script>
 
+
+
+<SCRIPT LANGUAGE=javascript SRC="js/indexA.js"></SCRIPT>
 </HEAD>
 
-<body style="margin: 0" onload="OnLoadIndex();initRpInterface();"
-	onresize="OnResizeIndex()" onmouseup="OnMouseUpBar()"
-	onmousemove="return OnMouseMoveBar(event);">
+<body style="margin: 0; overflow: hidden"
+	onload="OnLoadIndex();initRpInterface();" onresize="OnResizeIndex()"
+	onmouseup="OnMouseUpBar()" onmousemove="return OnMouseMoveBar(event);">
 
 	<div id="mainMenu">
 		<ul>
@@ -136,27 +139,27 @@
 	</div>
 
 	<!-- Header -->
-<!-- 	<div id="divHeader" style="width: 100%; height: 4%"></div> -->
+	<div id="divHeader" style="width: 100%; height: 4%"></div>
 
+	<!-- Vertical Bar -->
+	<div id="divVertBar" onmousedown="return OnMouseDownBar(true, event);"
+		style="cursor: col-resize; font-size: 3pt; position: absolute; width: 5px; background-color: black">ddd</div>
 
 	<!--
 <div id="divHorzBar" onmousedown="return OnMouseDownBar(false, event);" style="cursor:row-resize;font-size:3pt;position:absolute;width:100%;height:4px;background-color:blue"></div>
  -->
-	<!-- divPhantomBar -->
-	<div id="divPhantomBar"
-		style="display: none; font-size: 3pt; position: absolute; background-color: #369"></div>
 
-	<table cellpadding=0 cellspacing=0>
+
+	<table cellpadding=0 cellspacing=0 style="border: 3px solid blue">
 		<tr>
 			<td style="border: 2px solid white"><div id="cytoscapeweb">This
 					is the cytoscape panel</div></td>
-			<td>
-				<div id="divVertBar"
-					onmousedown="return OnMouseDownBar(true, event);"
-					style="cursor: col-resize; font-size: 3pt; position: absolute; width: 5px; background-color: black">ddd</div>
-			</td>
-			<td style="border: 2px solid white"><div id="obs"
-					style="overflow: auto">
+
+			<!-- divPhantomBar -->
+			<div id="divPhantomBar"
+				style="display: none; font-size: 3pt; position: absolute; background-color: #369"></div>
+				
+			<td style="border: 2px solid white"><div id="obs">
 					Observation panel<br> <br> <br>
 				</div></td>
 		</tr>
