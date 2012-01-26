@@ -69,10 +69,10 @@ div#divSimControlPanel {
   div#cytoscapeweb {
 	position: absolute;
 	/*left : 271px; */
-	height: 96%;
+	height:96%;
 	top: 40px;
-	/*width: 82%;
- */} 
+	/*width: 82%; */
+} 
 
 div#obs {
  	position: absolute;
@@ -82,7 +82,12 @@ div#obs {
 	/* width: 41%; */ 
 	background: lightblue;
 	/*visibility: hidden;*/
+	overflow:auto;
 }
+
+div#divVertBar {
+	height: 96%;
+} 
 
 .rowSelected {
 	background: lightyellow;
