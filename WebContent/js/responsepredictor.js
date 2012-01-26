@@ -3485,7 +3485,7 @@ function OnResizeIndex()
 	divBottom.style.width = sWidth;*/
 
 	// Height
-	var sHeight = new String();
+/*	var sHeight = new String();
 	var iHeight = document.body.clientHeight - g_iHeaderHeight - 13;
 	if (iHeight < 5)
 		iHeight = 5;
@@ -3493,7 +3493,7 @@ function OnResizeIndex()
 	sHeight += "px";
 	divCyWeb.style.height = sHeight;
 	divObs.style.height = sHeight;
-	divVertBar.style.height = sHeight;
+	divVertBar.style.height = sHeight;*/
 
 }
 

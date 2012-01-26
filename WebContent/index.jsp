@@ -144,8 +144,8 @@
 
 <table cellpadding=0 cellspacing=0 style="border:3px solid blue">
 	<tr>
-		<td style="border:2px solid white"><div id="cytoscapeweb" style="overflow:auto">This is the cytoscape panel</div></td>
-		<td style="border:2px solid white"><div id="obs" style="overflow:auto">Observation panel<br><br><br>
+		<td style="border:2px solid white"><div id="cytoscapeweb" >This is the cytoscape panel</div></td>
+		<td style="border:2px solid white"><div id="obs">Observation panel<br><br><br>
 		</div></td>
 	</tr>
 </table>
