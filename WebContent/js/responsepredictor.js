@@ -3414,7 +3414,7 @@ function clearObs() {
 	}
 }
 
-/*var g_iHeaderHeight;*/
+var g_iHeaderHeight;
 var g_formBarWidth = 271;
 var g_phantomBarLeft; 
 var g_bBarMoving = false;
@@ -3423,8 +3423,8 @@ var g_sizeVertBar = 5;
 
 function OnLoadIndex()
 {
-/*	var divHeader = document.getElementById("divHeader");
-	g_iHeaderHeight = parseInt(divHeader.style.height);*/
+	var divHeader = document.getElementById("divHeader");
+	g_iHeaderHeight = parseInt(divHeader.style.height);
 	g_phantomBarLeft = g_formBarWidth + Math.round((document.body.clientWidth - g_formBarWidth)/2) + 1;
 
 	OnResizeIndex();
@@ -3484,8 +3484,8 @@ function OnResizeIndex()
 	sWidth += "px";
 	divBottom.style.width = sWidth;*/
 
-/*	// Height
-	var sHeight = new String();
+	// Height
+/*	var sHeight = new String();
 	var iHeight = document.body.clientHeight - g_iHeaderHeight - 13;
 	if (iHeight < 5)
 		iHeight = 5;
@@ -3493,8 +3493,8 @@ function OnResizeIndex()
 	sHeight += "px";
 	divCyWeb.style.height = sHeight;
 	divObs.style.height = sHeight;
-	divVertBar.style.height = sHeight;
-*/
+	divVertBar.style.height = sHeight;*/
+
 }
 
 function OnMouseDownBar(bVert, evt)
@@ -3544,12 +3544,12 @@ function ShowPhantomBar(e)
 	var sTop = new String();
 	if (g_bVert)
 	{
-/*		var iHeight = document.body.clientHeight - g_iHeaderHeight - 15;
+		var iHeight = document.body.clientHeight - g_iHeaderHeight - 15;
 		iHeight = iHeight + 10;
 		sHeight = iHeight.toString();
 		sHeight += "px";
 		divPhantomBar.style.height = sHeight;
-*/
+
 		var sLeft = new String();
 		var iLeft = e.clientX - 5;
 		if (iLeft < 30)
@@ -3559,18 +3559,18 @@ function ShowPhantomBar(e)
 		divPhantomBar.style.left = sLeft;
 		divPhantomBar.style.width = '5px';
 
-/*		sTop = g_iHeaderHeight.toString();
-		sTop += "px";*/
-		divPhantomBar.style.top = "5px";
+		sTop = g_iHeaderHeight.toString();
+		sTop += "px";
+		divPhantomBar.style.top = sTop;
 	}
 	else
 	{	
-/*		var iTop = e.clientY - 5;
+		var iTop = e.clientY - 5;
 		if (iTop < g_iHeaderHeight + 20)
 			iTop = g_iHeaderHeight + 20;
 		sTop = iTop.toString();
-		sTop += "px";*/
-		divPhantomBar.style.top = "5px";
+		sTop += "px";
+		divPhantomBar.style.top = sTop;
 
 		var sWidth = new String();
 		var iWidth = document.body.clientWidth - 5;

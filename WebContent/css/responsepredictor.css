@@ -7,7 +7,6 @@
 	cursor: pointer;
 }
 
-/*used in menu */
 .swf {
 	height: 100%;
 	left: 0;
@@ -15,7 +14,7 @@
 	top: 0;
 	width: 100%;
 	z-index: 9999;
-} 
+}
 
 div#wait {
 	position: absolute;
@@ -70,18 +69,10 @@ div#divSimControlPanel {
   div#cytoscapeweb {
 	position: absolute;
 	/*left : 271px; */
-	height: 96%;
+	height:96%;
 	top: 4%;
-	/*width: 82%;
- */} 
- 
-div#divPhantomBar {
-	height: 96%;
-}
-
-div#divVertBar {
-	height: 96%;
-}
+	/*width: 82%; */
+} 
 
 div#obs {
  	position: absolute;
@@ -91,7 +82,12 @@ div#obs {
 	/* width: 41%; */ 
 	background: lightblue;
 	/*visibility: hidden;*/
+	overflow:auto;
 }
+
+div#divVertBar {
+	height: 96%;
+} 
 
 .rowSelected {
 	background: lightyellow;
@@ -181,7 +177,7 @@ ul#tabs li a.selected {
 	padding: 0.7em 0.3em 0.38em 0.3em;
 }
 
-/* div.tabContent {
+div.tabContent {
 	position: relative;
 	border: 1px solid #c9c3ba;
 	background-color: #f1f0ee;
@@ -189,15 +185,15 @@ ul#tabs li a.selected {
 	height: 100%;
 }
 
-Cannot use display:none as this would unload the flash component
-Switchting position to absolute would the flash component reload
+/*Cannot use display:none as this would unload the flash component*/
+/*Switchting position to absolute would the flash component reload*/
 div.tabContentHide {
-	position: relative; 
+	position: relative; /*
 	border: 1px solid #c9c3ba;
 	padding: 0.5em;
 	background-color: #f1f0ee;
-	
+	*/
 	width: 0%;
 	height: 0%;
 	left: -3200px;
-} */
+}
