@@ -44,7 +44,7 @@ var RP = {
 		MUTSTATE : 2
 	},
 	baseColor : '#3EA99F',
-	datasets : null, // contains the names of the datasets. Works as cache.
+	datasets : null // contains the names of the datasets. Works as cache.
 	//divModelCheckVisible : false
 };
 
@@ -331,9 +331,9 @@ function setState(state) {
  *            node id.
  * @returns : an array with changed nodes
  */
-function updateState(states, field) {
+function updateState(states,field) {
 	var nodes = RP.vis.nodes();
-	nodeIdArray = getNodeIdArray(nodes, "id");
+	nodeIdArray = getNodeIdArray(nodes, field);
 
 	updates = new Array();
 	var i = 0;
@@ -467,7 +467,7 @@ function resetMenuAndSim() {
 // Update one iteration
 function simUpdateOne() {
 	statesIt = RP.states[RP.simIt];
-	var updates = updateState(statesIt, "canonicalName");
+	var updates = updateState(statesIt,'id');
 	RP.vis.updateData(updates);
 }
 
@@ -3582,6 +3582,16 @@ function ShowPhantomBar(e)
 		divPhantomBar.style.left = '0px';
 	}
 }
+
+function showStartValuesObs() {
+	//transform the start values in states
+		
+	
+	states = Rp.obs[1].start;
+	updateState(states,'label');
+	setColorScheme(RP.colorScheme.SIMSTATE);
+	RP.vis.updateData(updates);	
+} 
 
 	
 
