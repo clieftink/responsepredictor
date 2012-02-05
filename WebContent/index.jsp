@@ -48,37 +48,48 @@
 		<ul>
 			<!--  First part of the menu black to avoid overlay of submenus and input div -->
 			<li><a id="mainMenuLi0A" style="width: 250px; height: 16px;"
-				href="#"></a></li>
-			<!--
-	<li onclick="getDummySimResult();"><a href="#">get dummy sim result</a></li>		
-	-->
+				href="#"></a>
+			</li>
+
+			<li onclick="showStartValuesObs();"><a href="#">show startvalues</a>
+			</li>
+
 			<li><a href="#">Network</a>
 				<ul id="fileMenu" onclick="resetMenuAndSim();">
-					<li onclick="emptyNetwork();"><a href="#">New network</a></li>
-					<li><a href="#">import <span id="networkImport"></span>
-					</a></li>
+					<li onclick="emptyNetwork();"><a href="#">New network</a>
+					</li>
+					<li><a href="#">import <span id="networkImport"></span> </a>
+					</li>
 					<!--
 		<li><a href="#">Network Export</a>
 		<ul>
 			-->
 					<li><a href="#">export <span id="networkExportXgmml"></span>
-					</a></li>
+					</a>
+					</li>
 					<!--
 			<li><a href="#">sif <span id="networkExportSif"></span> </a></li>
 		</ul>
 		</li>
 	-->
-				</ul></li>
+				</ul>
+			</li>
 			<li><a href="#">Node</a>
 				<ul>
-					<li onclick="createForm('addEditNode');"><a href="#">Add</a></li>
-					<li onclick="createForm('removeNode');"><a href="#">Remove</a></li>
-				</ul></li>
+					<li onclick="createForm('addEditNode');"><a href="#">Add</a>
+					</li>
+					<li onclick="createForm('removeNode');"><a href="#">Remove</a>
+					</li>
+				</ul>
+			</li>
 			<li><a href="#">Edge</a>
 				<ul>
-					<li onclick="createForm('addEditEdge');"><a href="#">Add</a></li>
-					<li onclick="createForm('removeEdge');"><a href="#">Remove</a></li>
-				</ul></li>
+					<li onclick="createForm('addEditEdge');"><a href="#">Add</a>
+					</li>
+					<li onclick="createForm('removeEdge');"><a href="#">Remove</a>
+					</li>
+				</ul>
+			</li>
 			<!--
 	<li><a href="#">Improve</a>
 	<ul>
@@ -95,26 +106,34 @@
 			<li><a href="#">Simulate</a>
 				<ul>
 					<li onclick="simFormSetNetwork();"><a href="#">Run
-							simulation</a></li>
-					<li onclick="setState(0);"><a href="#">Set state to 0</a></li>
-				</ul></li>
+							simulation</a>
+					</li>
+					<li onclick="setState(0);"><a href="#">Set state to 0</a>
+					</li>
+				</ul>
+			</li>
 			<li><a href="#">Observations</a>
 				<ul id="observationsMenu">
 					<!-- 		<li onclick="openCloseObsPane();"><a href="#">Open/close
 		observation pane</a></li> -->
-					<li onclick="createForm('addEditObs');"><a href="#">Add</a></li>
+					<li onclick="createForm('addEditObs');"><a href="#">Add</a>
+					</li>
 					<li><a onclick="resetMenuAndSim();" href="#">Import <span
-							id="obsImport"></span>
-					</a></li>
+							id="obsImport"></span> </a>
+					</li>
 					<li><a onclick="resetMenuAndSim();" href="#">Export <span
-							id="obsExport"></span>
-					</a></li>
-					<li><a onclick="clearObs();" href="#">Remove all</a></li>
-				</ul></li>
+							id="obsExport"></span> </a>
+					</li>
+					<li><a onclick="clearObs();" href="#">Remove all</a>
+					</li>
+				</ul>
+			</li>
 			<li><a href="#">Check</a>
 				<ul>
-					<li onclick="getCheckResult();"><a href="#">Run check</a></li>
-				</ul></li>
+					<li onclick="getCheckResult();"><a href="#">Run check</a>
+					</li>
+				</ul>
+			</li>
 		</ul>
 
 	</div>
@@ -153,15 +172,17 @@
 	<table cellpadding=0 cellspacing=0 style="border: 3px solid blue">
 		<tr>
 			<td style="border: 2px solid white"><div id="cytoscapeweb">This
-					is the cytoscape panel</div></td>
+					is the cytoscape panel</div>
+			</td>
 
 			<!-- divPhantomBar -->
 			<div id="divPhantomBar"
 				style="display: none; font-size: 3pt; position: absolute; background-color: #369"></div>
-				
+
 			<td style="border: 2px solid white"><div id="obs">
 					Observation panel<br> <br> <br>
-				</div></td>
+				</div>
+			</td>
 		</tr>
 	</table>
 </BODY>
