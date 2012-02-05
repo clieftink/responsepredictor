@@ -132,6 +132,22 @@ function setBaseColor(hexCode) {
 	RP.vis.visualStyle(visualStyle);
 }
 
+function RGBtoHex(R, G, B) {
+	return toHex(R) + toHex(G) + toHex(B)
+}
+function toHex(N) {
+	if (N == null)
+		return "00";
+	N = parseInt(N);
+	if (N == 0 || isNaN(N))
+		return "00";
+	N = Math.max(0, N);
+	N = Math.min(N, 255);
+	N = Math.round(N);
+	return "0123456789ABCDEF".charAt((N - N % 16) / 16)
+			+ "0123456789ABCDEF".charAt(N % 16);
+}
+
 function setColorScheme(colorScheme) {
 	var visualStyle = RP.vis.visualStyle();
 
@@ -142,15 +158,23 @@ function setColorScheme(colorScheme) {
 		// 1. First, create a function and add it to the Visualization object.
 		RP.vis["stateColor"] = function(el) {
 			var color = RP.baseColor;
-			if (el.state != null && !isNaN(el.state)) {
+			if (typeof el != "undefined" && el.state != null
+					&& !isNaN(el.state)) {
 				if (el.state <= 0)
 					color = '#FF0000' // red: rgb(255,0,0)
 				else {
 					if (el.state >= 1)
 						color = '#00FF00'; // green: rgb(0,255,0)
+					else {
+						// calculate rgb
+						var r = Math.round(255 * (1 - el.state));
+						var g = Math.round(255 * el.state);
+						var b = 0;
+						color = RGBtoHex(r, g, b);
+					}
 				}
 			}
-			
+
 			// var value = Math.round(100 * data["weight"]) + "%";
 			return color;
 		};
@@ -173,7 +197,7 @@ function setColorScheme(colorScheme) {
 					value : RP.baseColor
 				}, {
 					attrValue : 0,
-					value : RP.baseColor
+					value : RP.baseColorrgb2Hex
 				}, {
 					attrValue : 1, // added
 					value : "#990099"
@@ -3395,8 +3419,7 @@ function activateImporter() {
  * divWeb.style.width = "82%"; divObs.style.visibility = "hidden"; } else {
  * divWeb.style.width = "41%"; divObs.style.visibility = "visible"; } ;
  * 
- * RP.divModelCheckVisible = !RP.divModelCheckVisible;
- *  }
+ * RP.divModelCheckVisible = !RP.divModelCheckVisible; }
  */
 function getDummySimResult() {
 	resetSim();
@@ -3607,11 +3630,18 @@ function ShowPhantomBar(e) {
 
 function showValuesObs(obsIdx, field) {
 
-	var states = RP.obs[obsIdx][field];
+	// set all nodes to base color
+	setState(null);
 
-	updateState(states, 'label', false);
-	setColorScheme(RP.colorScheme.SIMSTATE);
+	// give nodes from observations update. Nodes not in the network will be
+	// ignored by CytoscapeWeb
+	var states = RP.obs[obsIdx][field];
+	var updates= updateState(states, 'label', false);
 	RP.vis.updateData(updates);
+	
+	//give the right coloring
+	setColorScheme(RP.colorScheme.SIMSTATE);
+
 }
 
 /**
@@ -3627,34 +3657,16 @@ function showValuesObs(obsIdx, field) {
  *            b The blue color value
  * @return Array The HSV representation
  */
-function rgbToHsv(r, g, b) {
-	r = r / 255, g = g / 255, b = b / 255;
-	var max = Math.max(r, g, b), min = Math.min(r, g, b);
-	var h, s, v = max;
+/*
+ * function rgbToHsv(r, g, b) { r = r / 255, g = g / 255, b = b / 255; var max =
+ * Math.max(r, g, b), min = Math.min(r, g, b); var h, s, v = max;
+ * 
+ * var d = max - min; s = max == 0 ? 0 : d / max;
+ * 
+ * if (max == min) { h = 0; // achromatic } else { switch (max) { case r: h = (g -
+ * b) / d + (g < b ? 6 : 0); break; case g: h = (b - r) / d + 2; break; case b:
+ * h = (r - g) / d + 4; break; } h /= 6; }
+ * 
+ * return [ h, s, v ]; }
+ */
 
-	var d = max - min;
-	s = max == 0 ? 0 : d / max;
-
-	if (max == min) {
-		h = 0; // achromatic
-	} else {
-		switch (max) {
-		case r:
-			h = (g - b) / d + (g < b ? 6 : 0);
-			break;
-		case g:
-			h = (b - r) / d + 2;
-			break;
-		case b:
-			h = (r - g) / d + 4;
-			break;
-		}
-		h /= 6;
-	}
-
-	return [ h, s, v ];
-}
-
-function calcHsvColor() {
-
-}
