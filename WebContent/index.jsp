@@ -51,7 +51,7 @@
 				href="#"></a>
 			</li>
 
-			<li onclick="showStartValuesObs();"><a href="#">show startvalues</a>
+			<li onclick="showValuesObs('start');"><a href="#">show startvalues</a>
 			</li>
 
 			<li><a href="#">Network</a>

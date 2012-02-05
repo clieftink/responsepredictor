@@ -4,11 +4,13 @@ var RP = {
 	prior : null,
 	obs : new Array(),
 	timeCourseData : null,
-/*	nodeIdsHill : [ '', 'AKT.pS473', 'AKT.pT308', 'AMPK.PT172', 'cJUN.pS73',
-			'EGFR.PY1173', 'GSK3.pS21', 'JNK.PT183', 'LKB1.pS428',
-			'MAPK.pT202', 'MEK1.2.PS217', 'mTOR.pS2448', 'p38.PT180',
-			'p70S6K.pT389', 'p90RSK.pT359', 'PDK1.pS241', 'PIfn3Kp110',
-			'STAT3.pT727', 'STAT3.pY705', 'STAT5.pY964', 'TSC2.PT1462' ],*/
+	/*
+	 * nodeIdsHill : [ '', 'AKT.pS473', 'AKT.pT308', 'AMPK.PT172', 'cJUN.pS73',
+	 * 'EGFR.PY1173', 'GSK3.pS21', 'JNK.PT183', 'LKB1.pS428', 'MAPK.pT202',
+	 * 'MEK1.2.PS217', 'mTOR.pS2448', 'p38.PT180', 'p70S6K.pT389',
+	 * 'p90RSK.pT359', 'PDK1.pS241', 'PIfn3Kp110', 'STAT3.pT727', 'STAT3.pY705',
+	 * 'STAT5.pY964', 'TSC2.PT1462' ],
+	 */
 	timeOutHandler : null,
 	simIt : -1,
 	simPlayIsOn : 0,
@@ -21,7 +23,7 @@ var RP = {
 	obsChanged : false,
 	tabLinks : new Array(),
 	contentDivs : new Array(),
-/*	nodeIdGroup : "hill_2011",*/
+	/* nodeIdGroup : "hill_2011", */
 	nodeType : {
 		CUE : 0,
 		SIGNAL : 1,
@@ -44,8 +46,9 @@ var RP = {
 		MUTSTATE : 2
 	},
 	baseColor : '#3EA99F',
-	datasets : null // contains the names of the datasets. Works as cache.
-	//divModelCheckVisible : false
+	datasets : null
+// contains the names of the datasets. Works as cache.
+// divModelCheckVisible : false
 };
 
 // extension
@@ -136,16 +139,28 @@ function setColorScheme(colorScheme) {
 		visualStyle.nodes.color = RP.baseColor;
 		visualStyle.edges.color = RP.baseColor;
 	} else if (colorScheme == RP.colorScheme.SIMSTATE) {
+		// 1. First, create a function and add it to the Visualization object.
+		RP.vis["stateColor"] = function(el) {
+			var color = RP.baseColor;
+			if (el.state != null && !isNaN(el.state)) {
+				if (el.state <= 0)
+					color = '#FF0000' // red: rgb(255,0,0)
+				else {
+					if (el.state >= 1)
+						color = '#00FF00'; // green: rgb(0,255,0)
+				}
+			}
+			
+			// var value = Math.round(100 * data["weight"]) + "%";
+			return color;
+		};
+		// 2. Now create a new visual style (or get the current one) and
+		// register
 		visualStyle.nodes.color = {
-			continuousMapper : {
-				attrName : "state",
-				minValue : "#F85B5B", // red
-				maxValue : "#00FF00", // green
-				minAttrValue : 0,
-				maxAttrValue : 1.0
+			customMapper : {
+				functionName : "stateColor"
 			}
 		};
-
 	} else if (colorScheme == RP.colorScheme.MUTSTATE) {
 		var color = {
 			discreteMapper : {
@@ -329,9 +344,12 @@ function setState(state) {
  * @param states:
  *            key-value pairs for the nodes to be updated. The key contains the
  *            node id.
+ * @param errorMsg
+ *            (true /false in case is not found
+ * 
  * @returns : an array with changed nodes
  */
-function updateState(states,field) {
+function updateState(states, field, errorMsg) {
 	var nodes = RP.vis.nodes();
 	nodeIdArray = getNodeIdArray(nodes, field);
 
@@ -342,7 +360,8 @@ function updateState(states,field) {
 		var node_k = nodes[nodeIdArray.indexOf(key)];
 		if (typeof (node_k) == 'undefined') {
 			// TODO in stead of alert, to some error log
-			alert('for key =' + key + ' no node found');
+			if (errorMsg)
+				alert('for key =' + key + ' no node found');
 		} else {
 			// null parsed by parseFloat to NaN
 			// NaN not accepted as value by Cytoscape web
@@ -467,7 +486,7 @@ function resetMenuAndSim() {
 // Update one iteration
 function simUpdateOne() {
 	statesIt = RP.states[RP.simIt];
-	var updates = updateState(statesIt,'id');
+	var updates = updateState(statesIt, 'id', true);
 	RP.vis.updateData(updates);
 }
 
@@ -549,16 +568,17 @@ function getValues(tag, isSingle, arrays, field, removePrefix) {
 	var inputs = jQuery(tag);
 	jQuery.each(inputs, function(i, item) {
 		var value;
-		
-		if (typeof item['value'] == "undefined") 
+
+		if (typeof item['value'] == "undefined")
 			value = null;
 		else {
 			if (trim(item['value']) == "")
 				value = null;
-			else 
+			else
 				value = item['value'];
-		};
-		
+		}
+		;
+
 		if (typeof isSingle != "undefined" && isSingle) {
 			values = value;
 		} else {
@@ -655,7 +675,7 @@ function createTdSelect(prefix, id, name, defValue) {
  * @returns
  */
 
-function addRow(id, name, inclEnd, obsRec,inputText) {
+function addRow(id, name, inclEnd, obsRec, inputText) {
 	if (!document.getElementById)
 		return; // Prevent older browsers from getting any further.
 
@@ -666,21 +686,20 @@ function addRow(id, name, inclEnd, obsRec,inputText) {
 		td1.appendChild(text);
 		row.appendChild(td1);
 
-		
 		if (typeof (obsRec) != 'undefined') {
 			var obsRecStart = obsRec.start;
 			var obsRecFixed = obsRec.fixed;
 			var obsRecEnd = obsRec.end;
 		}
-		
+
 		var td2;
-		if (inputText) { 
+		if (inputText) {
 			if (typeof (obsRecStart) == 'undefined')
-				obsRecStart="";
-			td2 = createInput("s"+id, name, 4, 10, "text", obsRecStart);
-		}else 
+				obsRecStart = "";
+			td2 = createInput("s" + id, name, 4, 10, "text", obsRecStart);
+		} else
 			td2 = createTdSelect("s", id, name, obsRecStart);
-		
+
 		row.appendChild(td2);
 
 		var td3 = document.createElement("td");
@@ -698,11 +717,11 @@ function addRow(id, name, inclEnd, obsRec,inputText) {
 
 		if (inclEnd) {
 			var td4;
-			if (inputText) { 
+			if (inputText) {
 				if (typeof (obsRecEnd) == 'undefined')
-					obsRecEnd="";
-				td4 = createInput("e"+id, name, 4, 10, "text", obsRecEnd);
-			} else 					
+					obsRecEnd = "";
+				td4 = createInput("e" + id, name, 4, 10, "text", obsRecEnd);
+			} else
 				td4 = createTdSelect("e", id, name, obsRecEnd);
 			row.appendChild(td4);
 		}
@@ -1003,9 +1022,10 @@ function createObsTable(obsIndex, obsNames, nodesNames, matrix, score) {
 	var tr = document.createElement("tr");
 	tr.id = 0;
 	tr.className = "rowNotSelected";
-	// start with empty fields above simulate, edit and trash and a field with
+	// start with empty fields above show start, show end, simulate, edit and
+	// trash and a field with
 	// score above obs name
-	for ( var i = 0; i < 4; i++) {
+	for ( var i = 0; i < 6; i++) {
 		var td = document.createElement("td");
 		td.bgcolor = '#FFFFFF';
 		td.style.height = '25px';
@@ -1038,38 +1058,56 @@ function createObsTable(obsIndex, obsNames, nodesNames, matrix, score) {
 			tr.className = "rowSelected";
 		}
 
-		// Add clickable images for simulation, edit and delete
-		for ( var j = 0; j < 3; j++) {
+		// Add clickable images for show start, show end, simulation, edit and
+		// delete
+		for ( var j = 0; j < 5; j++) {
 			var td0 = document.createElement("td");
 			var img = document.createElement("img");
 
 			var funct;
 			// get the id of the row by going to parent td, and then to tr
-			
+
 			if (j == 0) {
+				img.src = "images/backward_end.png";
+				img.onclick = function() {
+					markSelectRowDrawDetails(this.parentNode.parentNode.id);
+					showValuesObs(this.parentNode.parentNode.id - 1, 'start');
+				};
+			}
+
+			if (j == 1) {
+				img.src = "images/forward_end.png";
+				img.onclick = function() {
+					markSelectRowDrawDetails(this.parentNode.parentNode.id);
+					showValuesObs(this.parentNode.parentNode.id - 1, 'end');
+				};
+			}
+
+			if (j == 2) {
 				img.src = "images/simulation.png";
 				img.onclick = function() {
 					markSelectRowDrawDetails(this.parentNode.parentNode.id);
 					simFormSetNetwork(RP.obs[this.parentNode.parentNode.id - 1]);
 				};
 			}
-				
-			if (j==1) {
-				img.src = "images/edit.jpg"	;
-					img.onclick = function() {
+
+			if (j == 3) {
+				img.src = "images/edit.jpg";
+				img.onclick = function() {
 					markSelectRowDrawDetails(this.parentNode.parentNode.id);
-					createForm('addEditObs', RP.obs[this.parentNode.parentNode.id - 1]);
+					createForm('addEditObs',
+							RP.obs[this.parentNode.parentNode.id - 1]);
 				};
 			}
-				
 
-			if (j==2) {
+			if (j == 4) {
 				img.src = "images/trash.png";
 				img.onclick = function() {
 					markSelectRowDrawDetails(this.parentNode.parentNode.id);
 					deleteObs(this.parentNode.parentNode.id - 1);
 				};
-			};
+			}
+			;
 
 			td0.appendChild(img);
 			tr.appendChild(td0);
@@ -1124,9 +1162,10 @@ function createObsTable(obsIndex, obsNames, nodesNames, matrix, score) {
 		tr.id = obsNames.length + i + i;
 		tr.className = "rowSelected";
 
-		// First fields where in the Oveview the simulation, edit and trash
+		// First fields where in the Oveview the show start, show end,
+		// simulation, edit and trash
 		// images are
-		for (var j=0 ; j < 3 ; j++){
+		for ( var j = 0; j < 5; j++) {
 			var td = document.createElement("td");
 			tr.appendChild(td);
 		}
@@ -1149,7 +1188,7 @@ function createObsTable(obsIndex, obsNames, nodesNames, matrix, score) {
 	// in case of deleted row on the obsIndex
 	if (obsIndex > RP.obs.length)
 		obsIndex = 0
-		
+
 	drawDetails(tab, obsIndex);
 
 	return tab;
@@ -1554,7 +1593,6 @@ function storedObservation(storedFileId) {
 	getResult(data, 'storedFile', "json", successFunction);
 }
 
-
 function createOption(value, text, sel) {
 	var option = document.createElement("option");
 	option.value = value;
@@ -1622,9 +1660,9 @@ function appendSelect(frm, name, defValue) {
 				value : "1",
 				text : 'signal'
 			});
-/*
- * options.push({ value : "2", text : 'response' });
- */
+			/*
+			 * options.push({ value : "2", text : 'response' });
+			 */
 		}
 
 		for ( var i = 0; i < options.length; i++) {
@@ -1714,7 +1752,7 @@ function addEditEdge(currentEdge) {
 		}
 	}
 
-// var weight = inputText.weight;
+	// var weight = inputText.weight;
 
 	var label = values.source + "_" + values.target;
 	var data = {
@@ -1723,7 +1761,7 @@ function addEditEdge(currentEdge) {
 		source : values.source,
 		target : values.target,
 		interaction : values.interaction,
-// weight : parseFloat(weight),
+		// weight : parseFloat(weight),
 		refs : refs,
 		notes : notes
 	};
@@ -1768,19 +1806,19 @@ function addEditEdge(currentEdge) {
 	// emptyElement(document.getElementById("divInput"));
 }
 
-
 function getMapPlayers(key) {
-	
+
 	var map = {};
-	var players= getPlayers();
-	for ( var i = 0, len =players.length; i < len; i++) 
+	var players = getPlayers();
+	for ( var i = 0, len = players.length; i < len; i++)
 		if (key == "id")
 			map[players[i].data.id] = players[i].data.label;
-		else //label 
+		else
+			// label
 			map[players[i].data.label] = players[i].data.id;
-	
+
 	return map;
-	
+
 }
 
 /*
@@ -2021,11 +2059,11 @@ function removeNode(nodeId) {
 	} else {
 		var node = RP.vis.nodes()[i];
 		RP.vis.removeNode(node);
-		
+
 		// In the obsview only the nodes in the network are shown
-		//if (RP.divModelCheckVisible)
+		// if (RP.divModelCheckVisible)
 		crObsView(0);
-			
+
 	}
 }
 
@@ -2049,34 +2087,37 @@ function trim(str) {
 function getIndexObsName(name) {
 	var arr = getArray(RP.obs, 'name', true);
 	var index = arr.indexOf(name.toLowerCase());
-	
+
 }
 
 /**
- * * 
+ * *
+ * 
  * @param name
- * @param values : set as properties / (simulating hashmap)
+ * @param values :
+ *            set as properties / (simulating hashmap)
  * @returns {Boolean}
  */
 
-function valuesBetween0and1(name,values) {
+function valuesBetween0and1(name, values) {
 
-	text="";
+	text = "";
 	var map = getMapPlayers("id");
 	jQuery.each(values, function(key, value) {
 		if (values[key] < 0 || values[key] > 1) {
-			if (text !="")
+			if (text != "")
 				text += ",";
-			text += map[key];		
+			text += map[key];
 		}
 	});
-	if (text !="") {
-		alert("Values for '" + name +" 'are not between 0 and 1 for nodes " + text);
+	if (text != "") {
+		alert("Values for '" + name + " 'are not between 0 and 1 for nodes "
+				+ text);
 		return false;
-	}else return true;
-	
-}
+	} else
+		return true;
 
+}
 
 /**
  * 
@@ -2085,7 +2126,7 @@ function valuesBetween0and1(name,values) {
  *            true : textfield, false: select field
  */
 
-function addEditObs(element,text) {
+function addEditObs(element, text) {
 	var name = getValues('input[id="name"]', true, null, 'name');
 	if (name == null) {
 		alert('Name is empty!');
@@ -2096,40 +2137,41 @@ function addEditObs(element,text) {
 			alert('Name is empty!');
 		} else {
 			// TODO check if name already exists (case insensitive)
-			var checkNameExists=false;
-			if (typeof (element) != 'undefined' && name.toLowerCase()!=element.name.toLowerCase())
-				checkNameExists=true;
-			else 
-				checkNameExists=true;
-			
-			var nameExistsWarning=false;
+			var checkNameExists = false;
+			if (typeof (element) != 'undefined'
+					&& name.toLowerCase() != element.name.toLowerCase())
+				checkNameExists = true;
+			else
+				checkNameExists = true;
+
+			var nameExistsWarning = false;
 			if (checkNameExists)
 				var index = getIndexObsName(name);
-				if (index > -1)
-					nameExistsWarning=true;
-			
+			if (index > -1)
+				nameExistsWarning = true;
+
 			if (nameExistsWarning)
 				alert("Name '" + name + "' already exists!");
 			else {
 				if (typeof (element) != 'undefined')
-					id= element.id;
-				else id = calcMinMaxValue(RP.obs, 'id', false) + 1;
+					id = element.id;
+				else
+					id = calcMinMaxValue(RP.obs, 'id', false) + 1;
 				var startTag;
 				if (text) {
-					startTag='input[id^="s"]';
-					endTag='input[id^="e"]';
+					startTag = 'input[id^="s"]';
+					endTag = 'input[id^="e"]';
 				} else {
-					startTag='select[id^="s"]';
-					endTag='input[id^="e"]';
+					startTag = 'select[id^="s"]';
+					endTag = 'input[id^="e"]';
 				}
-				
-				var start = getValues(startTag, false, null, 'id',
-						true);
-				
-				var end = getValues(endTag, false, null, 'id',
-						true);
 
-				if(valuesBetween0and1("start",start) &&  valuesBetween0and1("end",end)) {
+				var start = getValues(startTag, false, null, 'id', true);
+
+				var end = getValues(endTag, false, null, 'id', true);
+
+				if (valuesBetween0and1("start", start)
+						&& valuesBetween0and1("end", end)) {
 					var fixed = getFixedValues();
 
 					var obs = {
@@ -2142,7 +2184,7 @@ function addEditObs(element,text) {
 
 					var idx = 0;
 					if (typeof (element) != 'undefined') {
-						var ids = getArray(RP.obs,"id");
+						var ids = getArray(RP.obs, "id");
 						idx = ids.indexOf(element.id);
 						RP.obs[idx] = obs;
 					} else
@@ -2154,11 +2196,9 @@ function addEditObs(element,text) {
 	}
 };
 
-
 function getPlayers() {
-	return(getNodesByType([ 0, 1 ]));
-} 
-
+	return (getNodesByType([ 0, 1 ]));
+}
 
 /**
  * Get nodes based on their type.
@@ -2181,13 +2221,14 @@ function getNodesByType(inclTypes) {
  * 
  * 
  * @param inclEnd
- * @param obs: in case of click on observation to run simulation
+ * @param obs:
+ *            in case of click on observation to run simulation
  * @param text :
  *            if true , than input = textfield, other wise select field
  * @returns
  */
 
-function createTableNodeValues(idField,inclEnd, obs, inputText) {
+function createTableNodeValues(idField, inclEnd, obs, inputText) {
 
 	var table = document.createElement("table");
 	var row = document.createElement("tr");
@@ -2212,14 +2253,14 @@ function createTableNodeValues(idField,inclEnd, obs, inputText) {
 			var start = obs.start[node.data.label];
 			var end = obs.end[node.data.label];
 			if (!inputText) {
-				start=Math.round(start);
-				end=Math.round(end);
+				start = Math.round(start);
+				end = Math.round(end);
 			}
-			
+
 			var fixed = false;
 			if (obs.fixed.indexOf(node.data.label) > -1)
 				fixed = true;
-			
+
 			var obsRec = {
 				start : start,
 				fixed : fixed,
@@ -2229,7 +2270,7 @@ function createTableNodeValues(idField,inclEnd, obs, inputText) {
 		}
 
 		table.appendChild(addRow(node.data[idField], node.data.label, inclEnd,
-			obsRec,inputText));
+				obsRec, inputText));
 	}
 	return table;
 }
@@ -2402,46 +2443,45 @@ function appendCaptionRow(table, color, descr) {
 // appendBr(frm, 1);
 // }
 
-
 function simFormSetNetwork(element) {
 
-	createForm('simulation',element);
-	
+	createForm('simulation', element);
+
 	var states = new Array();
 	if (typeof (element) == "undefined") {
 		var players = getPlayers();
 		var startState = {};
-		for ( var i = 0, len = players.length; i < len; i++) 
+		for ( var i = 0, len = players.length; i < len; i++)
 			startState[players[i].data.id] = 0;
-		states[0]=startState;
-		
-	}else {
+		states[0] = startState;
+
+	} else {
 		// create state for all the nodes which are in the network
-		var nodeIds = getArray(RP.vis.nodes(),'data.id');
-		
+		var nodeIds = getArray(RP.vis.nodes(), 'data.id');
+
 		var state = {};
 		// TODO set values to a null value and simulate with it
-		for ( var i = 0, len = nodeIds.length; i < len; i++) 
+		for ( var i = 0, len = nodeIds.length; i < len; i++)
 			state[nodeIds[i]] = 0;
-		
+
 		var map = getMapPlayers("label");
-		
+
 		jQuery.each(element.start, function(key, value) {
-			//key is in terms of label.
+			// key is in terms of label.
 			var id = map[key];
-			
+
 			var idx = nodeIds.indexOf(id);
-			if (idx > -1) 
-				state[id] =Math.round(value);
+			if (idx > -1)
+				state[id] = Math.round(value);
 		});
-		states[0]= state;
+		states[0] = state;
 	}
-		
+
 	// execute query
 	getSimResult();
-/*
- * RP.states = states; updateNodesWithStartValues();
- */
+	/*
+	 * RP.states = states; updateNodesWithStartValues();
+	 */
 }
 
 function createForm(formType, element) {
@@ -2532,11 +2572,11 @@ function createForm(formType, element) {
 					defValue = element.data.interaction;
 				appendSelect(frm, 'interaction', defValue);
 
-/*
- * var defValue = 0.4; if (typeof (element) != 'undefined' &&
- * element.data.weight != null) defValue = element.data.weight;
- * appendWeight(frm, "Regression weight", defValue);
- */
+				/*
+				 * var defValue = 0.4; if (typeof (element) != 'undefined' &&
+				 * element.data.weight != null) defValue = element.data.weight;
+				 * appendWeight(frm, "Regression weight", defValue);
+				 */
 
 				appendTextNode(frm, "References");
 				appendBr(frm, 1);
@@ -2602,7 +2642,7 @@ function createForm(formType, element) {
 					selectRemoveNode();
 				};
 			}
-		} else if (formType == "simulation") { 
+		} else if (formType == "simulation") {
 			// need
 			// list of need type 1
 			appendHeader(frm, "DEFINE VALUES");
@@ -2635,7 +2675,7 @@ function createForm(formType, element) {
 			buttonDef.appendChild(buttonText);
 			frm.appendChild(buttonDef);
 
-			var table = createTableNodeValues("id",false,element,false);
+			var table = createTableNodeValues("id", false, element, false);
 			frm.appendChild(table);
 
 			// Input for number of iterations
@@ -2656,13 +2696,13 @@ function createForm(formType, element) {
 			};
 		} else if (formType == "addEditObs") {
 			var headerText = "NEW";
-			var nameValue ="";
-			
+			var nameValue = "";
+
 			if (typeof (element) != 'undefined') {
 				headerText = "EDIT";
 				appendHeader(frm, "Id: " + element.id);
 				nameValue = element.name;
-			}	
+			}
 			appendHeader(frm, "OBSERVATION: " + headerText);
 			var label = document.createTextNode("Name:");
 			frm.appendChild(label);
@@ -2686,11 +2726,11 @@ function createForm(formType, element) {
 			 * frm.appendChild(buttonDef);
 			 */
 
-			var table = createTableNodeValues("label",true, element,true);
+			var table = createTableNodeValues("label", true, element, true);
 			frm.appendChild(table);
 			buttonText = "save";
 			clickFunction = function() {
-				addEditObs(element,true);
+				addEditObs(element, true);
 			};
 		} else if (formType == "dbi") {
 			appendHeader(frm, "RUN DBI");
@@ -2793,14 +2833,14 @@ function setNetworkChanged(changed) {
  * 
  * 
  */
-function makeHandler(dir,name) {
+function makeHandler(dir, name) {
 	if (dir == "networks")
 		return function(evt) {
 			storedNetwork(name);
-			};
-	else 
+		};
+	else
 		return function(evt) {
-		storedObservation(name);
+			storedObservation(name);
 		};
 }
 
@@ -2823,19 +2863,20 @@ function addStoredFiles(dir) {
 			var menuId;
 			if (dir == "networks")
 				menuId = 'fileMenu';
-			else 
+			else
 				menuId = 'observationsMenu';
-			
+
 			var fileMenu = document.getElementById(menuId);
 			for ( var i = 0, len = names.length; i < len; i++) {
 				if (names[i] != ".empty.txt") {
 					var nrCharExt = 0;
 					if (dir == "networks")
-						nrCharExt=6;
+						nrCharExt = 6;
 					else
-						nrCharExt=5;
-					var name = names[i].substring(0, names[i].length - nrCharExt);
-					var click = makeHandler(dir,name);
+						nrCharExt = 5;
+					var name = names[i].substring(0, names[i].length
+							- nrCharExt);
+					var click = makeHandler(dir, name);
 					var li = createLi(fileMenu, name, click);
 					fileMenu.appendChild(li);
 				}
@@ -2846,7 +2887,7 @@ function addStoredFiles(dir) {
 	};
 
 	var data = {
-		filesDir : dir 
+		filesDir : dir
 	};
 
 	getResult(data, 'namesFiles', "json", successFunction);
@@ -2890,12 +2931,11 @@ function populateDataset() {
 
 }
 
-
 function initRpInterface() {
 
 	addStoredFiles('networks');
 	addStoredFiles('observations');
-	
+
 	ddsmoothmenu.init({
 		mainmenuid : "mainMenu", // Menu DIV id
 		orientation : 'h', // Horizontal or vertical menu: Set to "h" or "v"
@@ -3021,14 +3061,14 @@ function initRpInterface() {
 	var obsExport = new org.cytoscapeweb.demo.Exporter("obsExport",
 			exportOptions);
 
-/*
- * // Prepare importer for data var dataLoadOptions = { swfPath :
- * "swf/Importer", flashInstallerPath : "swf/playerProductInstall", data :
- * function(data) { RP.timeCourseData = data;
- * setUploadFileName(data.metadata.name); } };
- * 
- * new org.cytoscapeweb.demo.Importer("dataImport", dataLoadOptions);
- */
+	/*
+	 * // Prepare importer for data var dataLoadOptions = { swfPath :
+	 * "swf/Importer", flashInstallerPath : "swf/playerProductInstall", data :
+	 * function(data) { RP.timeCourseData = data;
+	 * setUploadFileName(data.metadata.name); } };
+	 * 
+	 * new org.cytoscapeweb.demo.Importer("dataImport", dataLoadOptions);
+	 */
 
 	// TODO put var in front again to make it a local variable
 	startXml = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>\
@@ -3079,29 +3119,28 @@ function initRpInterface() {
 	  </edge>\
 	  </graph>\
 	';
-	  
-	  /*
-		 * <node label="R1" id="-4">\ <att type="integer" name="Type"
-		 * value="2"/>\ <att type="string" name="canonicalName" value="C"/>\
-		 * <att type="real" name="weight" value="0.2" cy:editable="false"/>\
-		 * <graphics x="619" y="457" labelanchor="c"
-		 * cy:nodeLabelFont="Arial-0-15" w="40" width="3" outline="#ffffff"
-		 * type="DIAMOND" fill="#3ea99f" h="40" cy:nodeTransparency="0.8"/>\
-		 * </node>\ <edge label="S1 (1) R1" source="-2" target="-4" id="3">\
-		 * <att type="string" name="canonicalName" value="S1 (1) R1"/>\ <att
-		 * type="string" name="interaction" value="1" cy:editable="false"/>\
-		 * <att type="real" name="weight" value="0.2" cy:editable="false"/>\
-		 * <graphics cy:sourceArrowColor="#000000" cy:sourceArrow="0" width="4"
-		 * cy:targetArrow="6" cy:targetArrowColor="#000000" fill="#3ea99f"
-		 * cy:edgeLineType="SOLID"/>\ </edge>\ <edge label="S2 (-1) R1"
-		 * source="-3" target="-4" id="4">\ <att type="string"
-		 * name="canonicalName" value="S2 (-1) R1"/>\ <att type="string"
-		 * name="interaction" value="1" cy:editable="false"/>\ <att type="real"
-		 * name="weight" value="0.8" cy:editable="false"/>\ <graphics
-		 * cy:sourceArrowColor="#000000" cy:sourceArrow="0" width="4"
-		 * cy:targetArrow="15" cy:targetArrowColor="#000000" fill="#3ea99f"
-		 * cy:edgeLineType="SOLID"/>\ </edge>\
-		 */
+
+	/*
+	 * <node label="R1" id="-4">\ <att type="integer" name="Type" value="2"/>\
+	 * <att type="string" name="canonicalName" value="C"/>\ <att type="real"
+	 * name="weight" value="0.2" cy:editable="false"/>\ <graphics x="619"
+	 * y="457" labelanchor="c" cy:nodeLabelFont="Arial-0-15" w="40" width="3"
+	 * outline="#ffffff" type="DIAMOND" fill="#3ea99f" h="40"
+	 * cy:nodeTransparency="0.8"/>\ </node>\ <edge label="S1 (1) R1" source="-2"
+	 * target="-4" id="3">\ <att type="string" name="canonicalName" value="S1
+	 * (1) R1"/>\ <att type="string" name="interaction" value="1"
+	 * cy:editable="false"/>\ <att type="real" name="weight" value="0.2"
+	 * cy:editable="false"/>\ <graphics cy:sourceArrowColor="#000000"
+	 * cy:sourceArrow="0" width="4" cy:targetArrow="6"
+	 * cy:targetArrowColor="#000000" fill="#3ea99f" cy:edgeLineType="SOLID"/>\
+	 * </edge>\ <edge label="S2 (-1) R1" source="-3" target="-4" id="4">\ <att
+	 * type="string" name="canonicalName" value="S2 (-1) R1"/>\ <att
+	 * type="string" name="interaction" value="1" cy:editable="false"/>\ <att
+	 * type="real" name="weight" value="0.8" cy:editable="false"/>\ <graphics
+	 * cy:sourceArrowColor="#000000" cy:sourceArrow="0" width="4"
+	 * cy:targetArrow="15" cy:targetArrowColor="#000000" fill="#3ea99f"
+	 * cy:edgeLineType="SOLID"/>\ </edge>\
+	 */
 	var layoutOptions = {
 		fitToScreen : false
 	};
@@ -3127,8 +3166,8 @@ function initRpInterface() {
 	});
 
 	RP.vis.draw(drawOptions);
-	
-	//openCloseObsPane();
+
+	// openCloseObsPane();
 
 };
 
@@ -3180,8 +3219,9 @@ function drawDetails(tab, obsIndex) {
 			var startRow = 1 + RP.obs.length;
 
 			var tr = tab.childNodes[startRow + i];
-			// col 0: simulation, 1: edit 2:trash bin , 3: rowname
-			var startCol = 4;
+			// col 0: show start, 1: show end, 2: simulation, 3: edit 4:trash
+			// bin , 5: rowname
+			var startCol = 6;
 			var td = tr.childNodes[startCol + j];
 
 			// textnode
@@ -3348,21 +3388,16 @@ function activateImporter() {
 
 }
 
-/*function openCloseObsPane() {
-	var divWeb = document.getElementById('cytoscapeweb');
-	var divObs = document.getElementById('obs');
-	if (RP.divModelCheckVisible) {
-		divWeb.style.width = "82%";
-		divObs.style.visibility = "hidden";
-	} else {
-		divWeb.style.width = "41%";
-		divObs.style.visibility = "visible";
-	}
-	;
-
-	RP.divModelCheckVisible = !RP.divModelCheckVisible;
-
-}*/
+/*
+ * function openCloseObsPane() { var divWeb =
+ * document.getElementById('cytoscapeweb'); var divObs =
+ * document.getElementById('obs'); if (RP.divModelCheckVisible) {
+ * divWeb.style.width = "82%"; divObs.style.visibility = "hidden"; } else {
+ * divWeb.style.width = "41%"; divObs.style.visibility = "visible"; } ;
+ * 
+ * RP.divModelCheckVisible = !RP.divModelCheckVisible;
+ *  }
+ */
 function getDummySimResult() {
 	resetSim();
 	RP.states = [ {
@@ -3399,106 +3434,97 @@ function emptyNetwork() {
 	}
 }
 
-
 function getColor() {
-	var x = jQuery.colors( 'lightCoral' ).model('HSL').get();
-	
+	var x = jQuery.colors('lightCoral').model('HSL').get();
+
 	return x;
 }
 
 function clearObs() {
-	
+
 	if (confirm("Are you sure you want to remove all observations?")) {
-		RP.obs=[];
+		RP.obs = [];
 		crObsView();
 	}
 }
 
 var g_iHeaderHeight;
 var g_formBarWidth = 271;
-var g_phantomBarLeft; 
+var g_phantomBarLeft;
 var g_bBarMoving = false;
 var g_bVert = false;
 var g_sizeVertBar = 5;
 
-function OnLoadIndex()
-{
+function OnLoadIndex() {
 	var divHeader = document.getElementById("divHeader");
 	g_iHeaderHeight = parseInt(divHeader.style.height);
-	g_phantomBarLeft = g_formBarWidth + Math.round((document.body.clientWidth - g_formBarWidth)/2) + 1;
+	g_phantomBarLeft = g_formBarWidth
+			+ Math.round((document.body.clientWidth - g_formBarWidth) / 2) + 1;
 
 	OnResizeIndex();
 }
 
-
-/* layout:
- * 	formbar - cyweb-panel - vertbar - obs-panel  
+/*
+ * layout: formbar - cyweb-panel - vertbar - obs-panel
  * 
  */
 
-function OnResizeIndex()
-{
+function OnResizeIndex() {
 	var divCyWeb = document.getElementById("cytoscapeweb");
 	var divObs = document.getElementById("obs");
-	
+
 	// Width
-	var cyWebWidth = g_phantomBarLeft -1 - g_formBarWidth;
+	var cyWebWidth = g_phantomBarLeft - 1 - g_formBarWidth;
 	var sWidth = cyWebWidth.toString();
 	sWidth += "px";
 	divCyWeb.style.width = sWidth;
-	
+
 	var iLeft = g_formBarWidth + 1;
 	sLeft = iLeft.toString();
 	sLeft += "px";
 	divCyWeb.style.left = sLeft;
-	
-	
+
 	// VertBar 5px width
 	var divVertBar = document.getElementById("divVertBar");
-/*	iHeight = iHeight + 3;
-	sHeight = iHeight.toString();
-	sHeight += "px";
-	divVertBar.style.height = sHeight;*/
+	/*
+	 * iHeight = iHeight + 3; sHeight = iHeight.toString(); sHeight += "px";
+	 * divVertBar.style.height = sHeight;
+	 */
 
 	// left
 	var sLeft = new String();
-	var iLeft = g_phantomBarLeft ;
+	var iLeft = g_phantomBarLeft;
 	sLeft = iLeft.toString();
 	sLeft += "px";
 	divVertBar.style.left = sLeft;
-	
-	
-	var iWidth = document.body.clientWidth - g_formBarWidth - cyWebWidth - g_sizeVertBar - 20;
+
+	var iWidth = document.body.clientWidth - g_formBarWidth - cyWebWidth
+			- g_sizeVertBar - 20;
 	sWidth = iWidth.toString();
 	sWidth += "px";
 	divObs.style.width = sWidth;
-	
+
 	var iLeft = g_formBarWidth + cyWebWidth + g_sizeVertBar + 1;
 	sLeft = iLeft.toString();
 	sLeft += "px";
 	divObs.style.left = sLeft;
-	
 
-/*    	iWidth = document.body.clientWidth - 10;
-	sWidth = iWidth.toString();
-	sWidth += "px";
-	divBottom.style.width = sWidth;*/
+	/*
+	 * iWidth = document.body.clientWidth - 10; sWidth = iWidth.toString();
+	 * sWidth += "px"; divBottom.style.width = sWidth;
+	 */
 
 	// Height
-/*	var sHeight = new String();
-	var iHeight = document.body.clientHeight - g_iHeaderHeight - 13;
-	if (iHeight < 5)
-		iHeight = 5;
-	sHeight = iHeight.toString();
-	sHeight += "px";
-	divCyWeb.style.height = sHeight;
-	divObs.style.height = sHeight;
-	divVertBar.style.height = sHeight;*/
+	/*
+	 * var sHeight = new String(); var iHeight = document.body.clientHeight -
+	 * g_iHeaderHeight - 13; if (iHeight < 5) iHeight = 5; sHeight =
+	 * iHeight.toString(); sHeight += "px"; divCyWeb.style.height = sHeight;
+	 * divObs.style.height = sHeight; divVertBar.style.height = sHeight;
+	 */
 
 }
 
-function OnMouseDownBar(bVert, evt)
-{
+function OnMouseDownBar(bVert, evt) {
 	g_bBarMoving = true;
 	g_bVert = bVert;
 	var e = (window.event) ? window.event : evt;
@@ -3506,18 +3532,17 @@ function OnMouseDownBar(bVert, evt)
 	return false;
 }
 
-function OnMouseUpBar()
-{
-	if (g_bBarMoving)
-	{
+function OnMouseUpBar() {
+	if (g_bBarMoving) {
 		g_bBarMoving = false;
 
 		var divPhantomBar = document.getElementById("divPhantomBar");
-		if (g_bVert)
-		{
+		if (g_bVert) {
 			g_phantomBarLeft = parseInt(divPhantomBar.style.left);
-/*			if (g_phantomBarLeft - g_cyWebDivWidth < 50)
-				g_cyWebDivWidth = document.body.clientWidth - 50;*/
+			/*
+			 * if (g_phantomBarLeft - g_cyWebDivWidth < 50) g_cyWebDivWidth =
+			 * document.body.clientWidth - 50;
+			 */
 		}
 
 		divPhantomBar.style.display = 'none';
@@ -3525,10 +3550,8 @@ function OnMouseUpBar()
 	}
 }
 
-function OnMouseMoveBar(evt)
-{
-	if (g_bBarMoving)
-	{
+function OnMouseMoveBar(evt) {
+	if (g_bBarMoving) {
 		var e = (window.event) ? window.event : evt;
 		ShowPhantomBar(e);
 		e.returnValue = false;
@@ -3536,14 +3559,12 @@ function OnMouseMoveBar(evt)
 	}
 }
 
-function ShowPhantomBar(e)
-{
+function ShowPhantomBar(e) {
 	var divPhantomBar = document.getElementById("divPhantomBar");
 	divPhantomBar.style.display = 'block';
 
 	var sTop = new String();
-	if (g_bVert)
-	{
+	if (g_bVert) {
 		var iHeight = document.body.clientHeight - g_iHeaderHeight - 15;
 		iHeight = iHeight + 10;
 		sHeight = iHeight.toString();
@@ -3562,9 +3583,7 @@ function ShowPhantomBar(e)
 		sTop = g_iHeaderHeight.toString();
 		sTop += "px";
 		divPhantomBar.style.top = sTop;
-	}
-	else
-	{	
+	} else {
 		var iTop = e.clientY - 5;
 		if (iTop < g_iHeaderHeight + 20)
 			iTop = g_iHeaderHeight + 20;
@@ -3582,16 +3601,60 @@ function ShowPhantomBar(e)
 		divPhantomBar.style.left = '0px';
 	}
 }
+/*
+ * 
+ */
 
-function showStartValuesObs() {
-	//transform the start values in states
-		
-	
-	states = Rp.obs[1].start;
-	updateState(states,'label');
+function showValuesObs(obsIdx, field) {
+
+	var states = RP.obs[obsIdx][field];
+
+	updateState(states, 'label', false);
 	setColorScheme(RP.colorScheme.SIMSTATE);
-	RP.vis.updateData(updates);	
-} 
+	RP.vis.updateData(updates);
+}
 
-	
+/**
+ * Converts an RGB color value to HSV. Conversion formula adapted from
+ * http://en.wikipedia.org/wiki/HSV_color_space. Assumes r, g, and b are
+ * contained in the set [0, 255] and returns h, s, and v in the set [0, 1].
+ * 
+ * @param Number
+ *            r The red color value
+ * @param Number
+ *            g The green color value
+ * @param Number
+ *            b The blue color value
+ * @return Array The HSV representation
+ */
+function rgbToHsv(r, g, b) {
+	r = r / 255, g = g / 255, b = b / 255;
+	var max = Math.max(r, g, b), min = Math.min(r, g, b);
+	var h, s, v = max;
 
+	var d = max - min;
+	s = max == 0 ? 0 : d / max;
+
+	if (max == min) {
+		h = 0; // achromatic
+	} else {
+		switch (max) {
+		case r:
+			h = (g - b) / d + (g < b ? 6 : 0);
+			break;
+		case g:
+			h = (b - r) / d + 2;
+			break;
+		case b:
+			h = (r - g) / d + 4;
+			break;
+		}
+		h /= 6;
+	}
+
+	return [ h, s, v ];
+}
+
+function calcHsvColor() {
+
+}
