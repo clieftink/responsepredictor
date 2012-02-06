@@ -51,8 +51,8 @@
 				href="#"></a>
 			</li>
 
-			<li onclick="showValuesObs('start');"><a href="#">show startvalues</a>
-			</li>
+<!-- 			<li onclick="showValuesObs('start');"><a href="#">show startvalues</a>
+			</li> -->
 
 			<li><a href="#">Network</a>
 				<ul id="fileMenu" onclick="resetMenuAndSim();">
